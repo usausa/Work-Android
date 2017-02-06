@@ -1,7 +1,9 @@
-package io.github.usausa.example;
+package io.github.usausa.example.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import io.github.usausa.example.R;
 
 public class MainActivity extends AppCompatActivity {
 
