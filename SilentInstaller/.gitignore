@@ -3,6 +3,7 @@
 .externalNativeBuild
 .gradle
 /.idea/*
+!/.idea/dictionaries/shared.xml
 /build
 /captures
 /local.properties
