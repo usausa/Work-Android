@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Work</string>
+
+    <string name="execute_list">List</string>
+    <string name="execute_binding">Binding</string>
+
+    <string name="execute_back">Back</string>
+
+    <string name="label_user_id">User Id</string>
+    <string name="label_terminal_no">Terminal</string>
+
 </resources>
