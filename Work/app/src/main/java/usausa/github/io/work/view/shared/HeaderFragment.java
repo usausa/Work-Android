@@ -27,7 +27,7 @@ public class HeaderFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         HeaderBinding binding = DataBindingUtil.inflate(inflater, R.layout.header, container, false);
-        binding.setFragment(this);
+        binding.setView(this);
         return binding.getRoot();
     }
 
@@ -35,6 +35,7 @@ public class HeaderFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // TODO DI based
         userId.set("999999");
         terminalNo.set("11111111");
     }

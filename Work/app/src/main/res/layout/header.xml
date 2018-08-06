@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="fragment" type="usausa.github.io.work.view.shared.HeaderFragment"/>
+        <variable name="view" type="usausa.github.io.work.view.shared.HeaderFragment"/>
     </data>
 
     <LinearLayout
@@ -17,16 +17,16 @@
             android:layout_weight="1"
             android:text="@string/label_user_id"
             android:textColor="@color/white"
-            android:visibility="@{fragment.userIdEnable}"/>
+            android:visibility="@{view.userIdEnable}"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@{fragment.userId}"
+            android:text="@{view.userId}"
             android:textColor="@color/white"
             android:textAlignment="textEnd"
-            android:visibility="@{fragment.userIdEnable}"/>
+            android:visibility="@{view.userIdEnable}"/>
 
         <TextView
             android:layout_width="0dp"
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@{fragment.terminalNo}"
+            android:text="@{view.terminalNo}"
             android:textColor="@color/white"
             android:textAlignment="textEnd"/>
 
