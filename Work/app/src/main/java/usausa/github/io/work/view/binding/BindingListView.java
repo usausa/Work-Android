@@ -1,6 +1,7 @@
 package usausa.github.io.work.view.binding;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
@@ -9,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,7 +18,6 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.List;
-import java.util.Objects;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -52,19 +51,13 @@ public class BindingListView extends AppViewBase {
     // Initialize
     //--------------------------------------------------------------------------------
 
-    private ListViewAdaptor adaptor;
-
     @Override
     protected void onInitialize(@NonNull final View view) {
         // TODO
         ListView listView = view.findViewById(R.id.list);
-        adaptor = new ListViewAdaptor(Objects.requireNonNull(getActivity()), list);
-        listView.setAdapter(adaptor);
-        adaptor.notifyDataSetChanged();
         listView.setOnItemClickListener((parent, v, position, id) -> {
             SelectedItem<DataEntity> item = list.get(position);
             item.setSelected(!item.isSelected());
-            adaptor.notifyDataSetChanged();
         });
 
         if (disposable != null) {
@@ -81,7 +74,6 @@ public class BindingListView extends AppViewBase {
                     executing.set(false);
 
                     list.addAll(Stream.of(result).map(SelectedItem::new).collect(Collectors.toList()));
-                    adaptor.notifyDataSetChanged();
                 }, t-> {
                     executing.set(false);
 
@@ -112,15 +104,13 @@ public class BindingListView extends AppViewBase {
         SelectedItem<DataEntity> item = new SelectedItem<>(entity);
 
         list.add(0, item);
-
-        adaptor.notifyDataSetChanged();
     }
 
     //--------------------------------------------------------------------------------
     // Adaptor
     //--------------------------------------------------------------------------------
 
-    private final class ListViewAdaptor extends ArrayAdapter<SelectedItem<DataEntity>> {
+    private static final class ListViewAdaptor extends ArrayAdapter<SelectedItem<DataEntity>> {
 
         public ListViewAdaptor(@NonNull final Context context, final List<SelectedItem<DataEntity>> objects) {
             super(context, 0, objects);
@@ -144,6 +134,17 @@ public class BindingListView extends AppViewBase {
             binding.setItem(getItem(position));
 
             return binding.getRoot();
+        }
+    }
+
+    @BindingAdapter("android:list")
+    public static void setList(ListView listView, List<SelectedItem<DataEntity>> objects) {
+        if (listView.getAdapter() == null) {
+            ListViewAdaptor adapter = new ListViewAdaptor(listView.getContext(), objects);
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        } else {
+            ((ArrayAdapter)listView.getAdapter()).notifyDataSetChanged();
         }
     }
 }

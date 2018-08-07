@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import usausa.github.io.work.component.ActivityComponent;
 import usausa.github.io.work.component.ActivityModule;
-import usausa.github.io.work.view.Navigator;
+import usausa.github.io.work.view.helper.Navigator;
 import usausa.github.io.work.view.ViewId;
 
 public class MainActivity extends AppCompatActivity {

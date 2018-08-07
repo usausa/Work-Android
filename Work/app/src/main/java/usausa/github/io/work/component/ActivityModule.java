@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 import dagger.Module;
 import dagger.Provides;
-import usausa.github.io.work.view.Navigator;
+import usausa.github.io.work.view.helper.Navigator;
 
 @Module
 public class ActivityModule {

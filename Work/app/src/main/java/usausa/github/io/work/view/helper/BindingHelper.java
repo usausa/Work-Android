@@ -1,4 +1,4 @@
-package usausa.github.io.work.view;
+package usausa.github.io.work.view.helper;
 
 import android.databinding.BindingAdapter;
 import android.view.View;

@@ -17,14 +17,14 @@ public class MenuView extends AppViewBase {
         return R.layout.view_menu;
     }
 
+    @Override
+    protected boolean isDisplayUser() {
+        return false;
+    }
+
     //--------------------------------------------------------------------------------
     // Initialize
     //--------------------------------------------------------------------------------
-
-    @Override
-    protected void onInitialize(@NonNull final View view) {
-        setUserIdEnable(false);
-    }
 
     //--------------------------------------------------------------------------------
     // Event
@@ -41,6 +41,7 @@ public class MenuView extends AppViewBase {
 
     public final ObservableBoolean testEnable = new ObservableBoolean(true);
 
+    @Override
     public void executeFunction1() {
         testEnable.set(!testEnable.get());
     }

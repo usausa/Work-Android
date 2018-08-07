@@ -24,6 +24,7 @@ import usausa.github.io.work.BR;
 import usausa.github.io.work.MainActivity;
 import usausa.github.io.work.component.FragmentComponent;
 import usausa.github.io.work.service.DataService;
+import usausa.github.io.work.view.helper.Navigator;
 
 public abstract class AppViewBase extends Fragment {
 
@@ -85,13 +86,14 @@ public abstract class AppViewBase extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        onInitialize(view);
-
         // TODO
+        userIdEnable.set(isDisplayUser());
         if (userIdEnable.get()) {
             userId.set("999999");
         }
         terminalNo.set("11111111");
+
+        onInitialize(view);
     }
 
     @CallSuper
@@ -110,9 +112,10 @@ public abstract class AppViewBase extends Fragment {
 
     protected abstract int getViewId();
 
-    protected void setUserIdEnable(final boolean value) {
-        userIdEnable.set(value);
+    protected boolean isDisplayUser() {
+        return true;
     }
+
 
     protected void onInitialize(@NonNull final View view) {
     }

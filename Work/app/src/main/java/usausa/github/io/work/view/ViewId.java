@@ -7,6 +7,7 @@ import java.util.Map;
 
 import usausa.github.io.work.view.binding.BindingListView;
 import usausa.github.io.work.view.binding.BindingMiscView;
+import usausa.github.io.work.view.helper.Navigator;
 
 public final class ViewId {
 
