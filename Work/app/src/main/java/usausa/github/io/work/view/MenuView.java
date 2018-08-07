@@ -16,16 +16,13 @@ public class MenuView extends AppViewBase {
         return R.layout.view_menu;
     }
 
-    protected boolean isUserIdEnable() {
-        return false;
-    }
-
     //--------------------------------------------------------------------------------
     // Initialize
     //--------------------------------------------------------------------------------
 
     @Override
     protected void onInitialize(@NonNull final View view) {
+        setUserIdEnable(false);
     }
 
     //--------------------------------------------------------------------------------

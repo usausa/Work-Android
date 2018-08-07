@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="view" type="usausa.github.io.work.view.shared.HeaderFragment"/>
+        <variable name="view" type="usausa.github.io.work.view.AppViewBase"/>
     </data>
 
     <LinearLayout

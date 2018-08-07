@@ -2,6 +2,8 @@ package usausa.github.io.work.view;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -19,12 +21,16 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import usausa.github.io.work.BR;
-import usausa.github.io.work.R;
 import usausa.github.io.work.MainActivity;
 import usausa.github.io.work.component.FragmentComponent;
-import usausa.github.io.work.view.shared.HeaderFragment;
 
 public abstract class AppViewBase extends Fragment {
+
+    public final ObservableBoolean userIdEnable = new ObservableBoolean(true);
+
+    public final ObservableField<String> userId = new ObservableField<>();
+
+    public final ObservableField<String> terminalNo = new ObservableField<>();
 
     private ViewDataBinding binding;
 
@@ -70,12 +76,13 @@ public abstract class AppViewBase extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        HeaderFragment header = (HeaderFragment)getChildFragmentManager().findFragmentById(R.id.header);
-        if (header != null) {
-            header.userIdEnable.set(isUserIdEnable());
-        }
-
         onInitialize(view);
+
+        // TODO
+        if (userIdEnable.get()) {
+            userId.set("999999");
+        }
+        terminalNo.set("11111111");
     }
 
     @CallSuper
@@ -94,8 +101,8 @@ public abstract class AppViewBase extends Fragment {
 
     protected abstract int getViewId();
 
-    protected boolean isUserIdEnable() {
-        return true;
+    protected void setUserIdEnable(final boolean value) {
+        userIdEnable.set(value);
     }
 
     protected void onInitialize(@NonNull final View view) {
