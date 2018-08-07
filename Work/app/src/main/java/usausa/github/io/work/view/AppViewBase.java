@@ -118,4 +118,20 @@ public abstract class AppViewBase extends Fragment {
 
         disposables.add(disposable);
     }
+
+    // --------------------------------------------------------------------------------
+    // Functions
+    // --------------------------------------------------------------------------------
+
+    public void executeFunction1() {
+    }
+
+    public void executeFunction2() {
+    }
+
+    public void executeFunction3() {
+    }
+
+    public void executeFunction4() {
+    }
 }

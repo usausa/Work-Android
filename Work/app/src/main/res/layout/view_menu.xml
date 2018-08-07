@@ -14,6 +14,8 @@
 
         <include
             android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             layout="@layout/header"
             bind:view="@{view}"/>
 
@@ -45,54 +47,14 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <include
             android:id="@+id/functions"
+            layout="@layout/functions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <Button
-                style="?android:attr/buttonBarStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_function1"
-                android:enabled="false"
-                android:text=""
-                android:textSize="18sp"/>
-
-            <Button
-                style="?android:attr/buttonBarStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_function2"
-                android:enabled="false"
-                android:text=""
-                android:textSize="18sp"/>
-
-            <Button
-                style="?android:attr/buttonBarStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_function3"
-                android:enabled="false"
-                android:text=""
-                android:textSize="18sp"/>
-
-            <Button
-                style="?android:attr/buttonBarStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_function4"
-                android:enabled="false"
-                android:text=""
-                android:textSize="18sp"/>
-
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            bind:view="@{view}"/>
 
     </android.support.constraint.ConstraintLayout>
 

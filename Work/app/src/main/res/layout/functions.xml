@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="view" type="usausa.github.io.work.view.AppViewBase"/>
+        <variable name="f1Enable" type="Boolean"/>
+        <variable name="f2Enable" type="Boolean"/>
+        <variable name="f3Enable" type="Boolean"/>
+        <variable name="f4Enable" type="Boolean"/>
+        <variable name="f1Text" type="String"/>
+        <variable name="f2Text" type="String"/>
+        <variable name="f3Text" type="String"/>
+        <variable name="f4Text" type="String"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_function1"
+            android:onClick="@{() -> view.executeFunction1()}"
+            android:enabled="@{f1Enable}"
+            android:text="@{f1Text}"
+            android:textSize="18sp"/>
+
+        <Button
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_function2"
+            android:onClick="@{() -> view.executeFunction2()}"
+            android:enabled="@{f2Enable}"
+            android:text="@{f2Text}"
+            android:textSize="18sp"/>
+
+        <Button
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_function3"
+            android:onClick="@{() -> view.executeFunction3()}"
+            android:enabled="@{f3Enable}"
+            android:text="@{f3Text}"
+            android:textSize="18sp"/>
+
+        <Button
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_function4"
+            android:onClick="@{() -> view.executeFunction4()}"
+            android:enabled="@{f4Enable}"
+            android:text="@{f4Text}"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+</layout>
