@@ -14,13 +14,13 @@ public class DataService {
         for (int i = 1; i <= count; i++) {
             DataEntity entity = new DataEntity();
             entity.setId(String.valueOf(i));
-            entity.setId(String.format(Locale.getDefault(), "Data-%d", i));
+            entity.setName(String.format(Locale.getDefault(), "Data-%d", i));
             list.add(entity);
         }
 
         // Dummy
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             Timber.e(e);
         }

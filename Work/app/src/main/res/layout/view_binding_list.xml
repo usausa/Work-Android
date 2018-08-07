@@ -28,6 +28,10 @@
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintBottom_toTopOf="@+id/functions">
 
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
@@ -74,7 +78,9 @@
             app:layout_constraintStart_toStartOf="parent"
             bind:view="@{view}"
             bind:f1Enable="@{!view.executing}"
-            bind:f1Text="@{@string/execute_back}"/>
+            bind:f1Text="@{@string/execute_back}"
+            bind:f4Enable="@{!view.executing}"
+            bind:f4Text='@{"test"}'/>
 
     </android.support.constraint.ConstraintLayout>
 

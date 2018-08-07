@@ -1,20 +1,41 @@
 package usausa.github.io.work.view.binding;
 
+import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
+import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import usausa.github.io.work.R;
+import usausa.github.io.work.databinding.ItemBindingListBinding;
+import usausa.github.io.work.model.SelectedItem;
+import usausa.github.io.work.service.DataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 
 public class BindingListView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
+
+    public final ObservableArrayList<SelectedItem<DataEntity>> list = new ObservableArrayList<>();
 
     private Disposable disposable;
 
@@ -31,8 +52,21 @@ public class BindingListView extends AppViewBase {
     // Initialize
     //--------------------------------------------------------------------------------
 
+    private ListViewAdaptor adaptor;
+
     @Override
     protected void onInitialize(@NonNull final View view) {
+        // TODO
+        ListView listView = view.findViewById(R.id.list);
+        adaptor = new ListViewAdaptor(Objects.requireNonNull(getActivity()), list);
+        listView.setAdapter(adaptor);
+        adaptor.notifyDataSetChanged();
+        listView.setOnItemClickListener((parent, v, position, id) -> {
+            SelectedItem<DataEntity> item = list.get(position);
+            item.setSelected(!item.isSelected());
+            adaptor.notifyDataSetChanged();
+        });
+
         if (disposable != null) {
             disposable.dispose();
             disposable = null;
@@ -40,10 +74,19 @@ public class BindingListView extends AppViewBase {
 
         executing.set(true);
 
-        disposable = Single.fromCallable(() -> getDataService().queryEntityList(10000))
+        disposable = Single.fromCallable(() -> getDataService().queryEntityList(100))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> executing.set(false), t-> executing.set(false));
+                .subscribe(result -> {
+                    executing.set(false);
+
+                    list.addAll(Stream.of(result).map(SelectedItem::new).collect(Collectors.toList()));
+                    adaptor.notifyDataSetChanged();
+                }, t-> {
+                    executing.set(false);
+
+                    Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_LONG).show();
+                });
     }
 
     @Override
@@ -60,5 +103,47 @@ public class BindingListView extends AppViewBase {
 
     public void executeFunction1() {
         getNavigator().navigate(ViewId.MENU);
+    }
+
+    public void executeFunction4() {
+        DataEntity entity = new DataEntity();
+        entity.setId(String.valueOf(list.size()));
+        entity.setName("Test" + String.valueOf(list.size()));
+        SelectedItem<DataEntity> item = new SelectedItem<>(entity);
+
+        list.add(0, item);
+
+        adaptor.notifyDataSetChanged();
+    }
+
+    //--------------------------------------------------------------------------------
+    // Adaptor
+    //--------------------------------------------------------------------------------
+
+    private final class ListViewAdaptor extends ArrayAdapter<SelectedItem<DataEntity>> {
+
+        public ListViewAdaptor(@NonNull final Context context, final List<SelectedItem<DataEntity>> objects) {
+            super(context, 0, objects);
+        }
+
+        @NonNull
+        @Override
+        public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
+            ItemBindingListBinding binding;
+
+            if (convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                binding = DataBindingUtil.inflate(inflater, R.layout.item_binding_list, parent, false);
+
+                convertView = binding.getRoot();
+                convertView.setTag(binding);
+            } else {
+                binding = (ItemBindingListBinding)convertView.getTag();
+            }
+
+            binding.setItem(getItem(position));
+
+            return binding.getRoot();
+        }
     }
 }
