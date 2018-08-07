@@ -30,15 +30,12 @@ import usausa.github.io.work.model.SelectedItem;
 import usausa.github.io.work.service.DataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
-import usausa.github.io.work.view.helper.SelectCommand;
 
 public class BindingListView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
     public final ObservableArrayList<SelectedItem<DataEntity>> list = new ObservableArrayList<>();
-
-    public final SelectCommand selectedCommand = new SelectCommand(this::selectList);
 
     private Disposable disposable;
 
@@ -110,7 +107,7 @@ public class BindingListView extends AppViewBase {
     // Event
     //--------------------------------------------------------------------------------
 
-    private void selectList(final int position) {
+    public void selectList(final int position) {
         SelectedItem<DataEntity> item = list.get(position);
         item.setSelected(!item.isSelected());
     }

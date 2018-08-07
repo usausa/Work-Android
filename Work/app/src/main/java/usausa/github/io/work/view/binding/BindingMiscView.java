@@ -1,8 +1,5 @@
 package usausa.github.io.work.view.binding;
 
-import android.support.annotation.NonNull;
-import android.view.View;
-
 import usausa.github.io.work.R;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
