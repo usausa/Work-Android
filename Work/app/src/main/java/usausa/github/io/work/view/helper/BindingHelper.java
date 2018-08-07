@@ -6,13 +6,13 @@ import android.widget.ListView;
 
 public final class BindingHelper {
 
-    @BindingAdapter("android:visibility")
+    @BindingAdapter("visibility")
     public static void setVisibility(final View view, final boolean value) {
         view.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
-    @BindingAdapter("app:selectCommand")
-    public static void setSelectCommand(final ListView listView, final SelectedCommand command) {
+    @BindingAdapter("selectCommand")
+    public static void setSelectCommand(final ListView listView, final SelectCommand command) {
         listView.setOnItemClickListener((parent, view, position, id) -> command.execute(position));
     }
 

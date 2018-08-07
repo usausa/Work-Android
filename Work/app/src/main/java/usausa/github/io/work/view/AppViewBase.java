@@ -93,7 +93,7 @@ public abstract class AppViewBase extends Fragment {
         }
         terminalNo.set("11111111");
 
-        onInitialize(view);
+        onInitialize();
     }
 
     @CallSuper
@@ -117,7 +117,7 @@ public abstract class AppViewBase extends Fragment {
     }
 
 
-    protected void onInitialize(@NonNull final View view) {
+    protected void onInitialize() {
     }
 
     protected void onDispose() {

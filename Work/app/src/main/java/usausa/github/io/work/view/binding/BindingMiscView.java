@@ -23,7 +23,7 @@ public class BindingMiscView extends AppViewBase {
     //--------------------------------------------------------------------------------
 
     @Override
-    protected void onInitialize(@NonNull final View view) {
+    protected void onInitialize() {
     }
 
     //--------------------------------------------------------------------------------

@@ -30,7 +30,7 @@ import usausa.github.io.work.model.SelectedItem;
 import usausa.github.io.work.service.DataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
-import usausa.github.io.work.view.helper.SelectedCommand;
+import usausa.github.io.work.view.helper.SelectCommand;
 
 public class BindingListView extends AppViewBase {
 
@@ -38,7 +38,7 @@ public class BindingListView extends AppViewBase {
 
     public final ObservableArrayList<SelectedItem<DataEntity>> list = new ObservableArrayList<>();
 
-    public final SelectedCommand selectedCommand = new SelectedCommand(this::selectList);
+    public final SelectCommand selectedCommand = new SelectCommand(this::selectList);
 
     private Disposable disposable;
 
@@ -56,7 +56,7 @@ public class BindingListView extends AppViewBase {
     //--------------------------------------------------------------------------------
 
     @Override
-    protected void onInitialize(@NonNull final View view) {
+    protected void onInitialize() {
         if (disposable != null) {
             disposable.dispose();
             disposable = null;
@@ -146,7 +146,7 @@ public class BindingListView extends AppViewBase {
         }
     }
 
-    @BindingAdapter("app:list")
+    @BindingAdapter("list")
     public static void setList(final ListView listView, final List<SelectedItem<DataEntity>> objects) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {

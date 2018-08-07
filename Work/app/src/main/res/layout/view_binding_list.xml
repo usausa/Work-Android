@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:visibility="@{!view.executing}"
+            visibility="@{!view.executing}"
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintBottom_toTopOf="@+id/functions">
 
@@ -32,8 +32,8 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:list="@{view.list}"
-                app:selectCommand="@{view.selectedCommand}"/>
+                list="@{view.list}"
+                selectCommand="@{view.selectedCommand}"/>
 
         </LinearLayout>
 
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:visibility="@{view.executing}"
+            visibility="@{view.executing}"
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintBottom_toTopOf="@+id/functions">
 

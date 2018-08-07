@@ -1,6 +1,6 @@
 package usausa.github.io.work.view.helper;
 
-public class SelectedCommand {
+public class SelectCommand {
 
     @FunctionalInterface
     public interface Action {
@@ -10,7 +10,7 @@ public class SelectedCommand {
 
     private final Action action;
 
-    public SelectedCommand(final Action action) {
+    public SelectCommand(final Action action) {
         this.action = action;
     }
 
