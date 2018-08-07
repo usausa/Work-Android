@@ -9,4 +9,6 @@
     <string name="label_user_id">User Id</string>
     <string name="label_terminal_no">Terminal</string>
 
+    <string name="message_waiting">Waiting</string>
+
 </resources>

@@ -23,6 +23,7 @@ import io.reactivex.disposables.Disposable;
 import usausa.github.io.work.BR;
 import usausa.github.io.work.MainActivity;
 import usausa.github.io.work.component.FragmentComponent;
+import usausa.github.io.work.service.DataService;
 
 public abstract class AppViewBase extends Fragment {
 
@@ -39,6 +40,9 @@ public abstract class AppViewBase extends Fragment {
     @Inject
     Navigator navigator;
 
+    @Inject
+    DataService dataService;
+
     private FragmentComponent component;
 
     @NonNull
@@ -52,6 +56,11 @@ public abstract class AppViewBase extends Fragment {
     @NonNull
     protected Navigator getNavigator() {
         return navigator;
+    }
+
+    @NonNull
+    protected DataService getDataService() {
+        return dataService;
     }
 
     // --------------------------------------------------------------------------------
