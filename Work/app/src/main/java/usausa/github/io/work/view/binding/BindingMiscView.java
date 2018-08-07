@@ -30,6 +30,7 @@ public class BindingMiscView extends AppViewBase {
     // Function
     //--------------------------------------------------------------------------------
 
+    @Override
     public void executeFunction1() {
         getNavigator().navigate(ViewId.MENU);
     }

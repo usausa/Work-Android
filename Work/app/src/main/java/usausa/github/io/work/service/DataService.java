@@ -15,12 +15,12 @@ public class DataService {
             DataEntity entity = new DataEntity();
             entity.setId(String.valueOf(i));
             entity.setName(String.format(Locale.getDefault(), "Data-%d", i));
-            list.add(entity);
+            list.add(0, entity);
         }
 
         // Dummy
         try {
-            Thread.sleep(500);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             Timber.e(e);
         }

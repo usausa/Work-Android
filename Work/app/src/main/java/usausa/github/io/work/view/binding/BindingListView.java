@@ -18,6 +18,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,12 +30,15 @@ import usausa.github.io.work.model.SelectedItem;
 import usausa.github.io.work.service.DataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
+import usausa.github.io.work.view.helper.SelectedCommand;
 
 public class BindingListView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
     public final ObservableArrayList<SelectedItem<DataEntity>> list = new ObservableArrayList<>();
+
+    public final SelectedCommand selectedCommand = new SelectedCommand(this::selectList);
 
     private Disposable disposable;
 
@@ -53,13 +57,6 @@ public class BindingListView extends AppViewBase {
 
     @Override
     protected void onInitialize(@NonNull final View view) {
-        // TODO
-        ListView listView = view.findViewById(R.id.list);
-        listView.setOnItemClickListener((parent, v, position, id) -> {
-            SelectedItem<DataEntity> item = list.get(position);
-            item.setSelected(!item.isSelected());
-        });
-
         if (disposable != null) {
             disposable.dispose();
             disposable = null;
@@ -67,7 +64,7 @@ public class BindingListView extends AppViewBase {
 
         executing.set(true);
 
-        disposable = Single.fromCallable(() -> getDataService().queryEntityList(100))
+        disposable = Single.fromCallable(() -> getDataService().queryEntityList(10000))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
@@ -93,17 +90,29 @@ public class BindingListView extends AppViewBase {
     // Function
     //--------------------------------------------------------------------------------
 
+    @Override
     public void executeFunction1() {
         getNavigator().navigate(ViewId.MENU);
     }
 
+    @Override
     public void executeFunction4() {
+        int id = list.size() + 1;
         DataEntity entity = new DataEntity();
-        entity.setId(String.valueOf(list.size()));
-        entity.setName("Test" + String.valueOf(list.size()));
+        entity.setId(String.valueOf(id));
+        entity.setName(String.format(Locale.getDefault(), "New--%d", id));
         SelectedItem<DataEntity> item = new SelectedItem<>(entity);
 
         list.add(0, item);
+    }
+
+    //--------------------------------------------------------------------------------
+    // Event
+    //--------------------------------------------------------------------------------
+
+    private void selectList(final int position) {
+        SelectedItem<DataEntity> item = list.get(position);
+        item.setSelected(!item.isSelected());
     }
 
     //--------------------------------------------------------------------------------
@@ -137,14 +146,14 @@ public class BindingListView extends AppViewBase {
         }
     }
 
-    @BindingAdapter("android:list")
-    public static void setList(ListView listView, List<SelectedItem<DataEntity>> objects) {
-        if (listView.getAdapter() == null) {
-            ListViewAdaptor adapter = new ListViewAdaptor(listView.getContext(), objects);
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-        } else {
-            ((ArrayAdapter)listView.getAdapter()).notifyDataSetChanged();
+    @BindingAdapter("app:list")
+    public static void setList(final ListView listView, final List<SelectedItem<DataEntity>> objects) {
+        ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
+        if (adaptor == null) {
+            adaptor = new ListViewAdaptor(listView.getContext(), objects);
+            listView.setAdapter(adaptor);
         }
+
+        adaptor.notifyDataSetChanged();
     }
 }
