@@ -1,5 +1,6 @@
 package usausa.github.io.work.view;
 
+import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -35,5 +36,12 @@ public class MenuView extends AppViewBase {
 
     public void executeBinding() {
         getNavigator().navigate(ViewId.BINDING_MISC);
+    }
+
+
+    public final ObservableBoolean testEnable = new ObservableBoolean(true);
+
+    public void executeFunction1() {
+        testEnable.set(!testEnable.get());
     }
 }
