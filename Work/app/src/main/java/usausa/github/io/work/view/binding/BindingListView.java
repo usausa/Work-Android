@@ -54,11 +54,6 @@ public class BindingListView extends AppViewBase {
 
     @Override
     protected void onInitialize() {
-        if (disposable != null) {
-            disposable.dispose();
-            disposable = null;
-        }
-
         executing.set(true);
 
         disposable = Single.fromCallable(() -> getDataService().queryEntityList(10000))
