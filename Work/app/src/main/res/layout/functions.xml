@@ -4,10 +4,10 @@
 
     <data>
         <variable name="view" type="usausa.github.io.work.view.AppViewBase"/>
-        <variable name="f1Enable" type="Boolean"/>
-        <variable name="f2Enable" type="Boolean"/>
-        <variable name="f3Enable" type="Boolean"/>
-        <variable name="f4Enable" type="Boolean"/>
+        <variable name="f1Enable" type="boolean"/>
+        <variable name="f2Enable" type="boolean"/>
+        <variable name="f3Enable" type="boolean"/>
+        <variable name="f4Enable" type="boolean"/>
         <variable name="f1Text" type="String"/>
         <variable name="f2Text" type="String"/>
         <variable name="f3Text" type="String"/>
