@@ -31,8 +31,8 @@
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> view.executeList()}"
-                android:text="@string/execute_list"
+                android:onClick="@{() -> view.onClickBindingList()}"
+                android:text="@string/execute_binding_list"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textSize="18sp"/>
 
@@ -40,8 +40,17 @@
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> view.executeBinding()}"
-                android:text="@string/execute_binding"
+                android:onClick="@{() -> view.onClickBindingMisc()}"
+                android:text="@string/execute_binding_misc"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> view.onClickLayoutMenu()}"
+                android:text="@string/execute_layout_menu"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textSize="18sp"/>
 
