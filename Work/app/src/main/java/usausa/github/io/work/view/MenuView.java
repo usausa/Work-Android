@@ -33,4 +33,8 @@ public class MenuView extends AppViewBase {
     public void onClickLayoutMenu() {
         getNavigator().navigate(ViewId.LAYOUT_MENU);
     }
+
+    public void onClickLayoutKeyboard() {
+        getNavigator().navigate(ViewId.LAYOUT_KEYBOARD);
+    }
 }

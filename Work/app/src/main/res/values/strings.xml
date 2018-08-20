@@ -4,6 +4,7 @@
     <string name="execute_binding_list">List</string>
     <string name="execute_binding_misc">Binding</string>
     <string name="execute_layout_menu">Menu</string>
+    <string name="execute_layout_keyboard">Keyboard</string>
 
     <string name="execute_back">Back</string>
     <string name="execute_new">New</string>
