@@ -1,7 +1,6 @@
 package usausa.github.io.work.view.layout;
 
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 
 import usausa.github.io.work.R;
 import usausa.github.io.work.view.AppViewBase;

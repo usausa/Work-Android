@@ -39,7 +39,7 @@ android {
 
     lintOptions {
         abortOnError false
-        disable 'NewApi', 'OldTargetApi', 'GoogleAppIndexingWarning', 'UseSparseArrays'
+        disable 'NewApi', 'OldTargetApi', 'GoogleAppIndexingWarning', 'UseSparseArrays', 'LabelFor'
     }
 }
 
