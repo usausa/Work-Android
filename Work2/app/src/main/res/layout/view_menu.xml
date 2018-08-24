@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="view" type="usausa.github.io.work.view.MenuView"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/header"
+            bind:view="@{view}"/>
+
+        <LinearLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintBottom_toTopOf="@+id/functions">
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> view.onClickBindingList()}"
+                android:text="@string/execute_binding_list"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> view.onClickBindingMisc()}"
+                android:text="@string/execute_binding_misc"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> view.onClickLayoutMenu()}"
+                android:text="@string/execute_layout_menu"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> view.onClickLayoutKeyboard()}"
+                android:text="@string/execute_layout_keyboard"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/functions"
+            layout="@layout/functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
