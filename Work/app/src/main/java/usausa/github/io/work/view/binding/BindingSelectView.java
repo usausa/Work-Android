@@ -25,13 +25,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import usausa.github.io.work.R;
-import usausa.github.io.work.databinding.ItemBindingListBinding;
+import usausa.github.io.work.databinding.ItemBindingSelectBinding;
 import usausa.github.io.work.model.SelectedItem;
 import usausa.github.io.work.service.DataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 
-public class BindingListView extends AppViewBase {
+public class BindingSelectView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
@@ -45,7 +45,7 @@ public class BindingListView extends AppViewBase {
 
     @Override
     protected int getViewId() {
-        return R.layout.view_binding_list;
+        return R.layout.view_binding_select;
     }
 
     //--------------------------------------------------------------------------------
@@ -120,16 +120,16 @@ public class BindingListView extends AppViewBase {
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
-            ItemBindingListBinding binding;
+            ItemBindingSelectBinding binding;
 
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
-                binding = DataBindingUtil.inflate(inflater, R.layout.item_binding_list, parent, false);
+                binding = DataBindingUtil.inflate(inflater, R.layout.item_binding_select, parent, false);
 
                 convertView = binding.getRoot();
                 convertView.setTag(binding);
             } else {
-                binding = (ItemBindingListBinding)convertView.getTag();
+                binding = (ItemBindingSelectBinding)convertView.getTag();
             }
 
             binding.setItem(getItem(position));
@@ -138,7 +138,7 @@ public class BindingListView extends AppViewBase {
         }
     }
 
-    @BindingAdapter("list_binding_list")
+    @BindingAdapter("list_binding_select")
     public static void setList(final ListView listView, final List<SelectedItem<DataEntity>> objects) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {

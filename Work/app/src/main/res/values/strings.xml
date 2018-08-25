@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Work</string>
 
-    <string name="execute_binding_list">List</string>
+    <string name="execute_binding_select">Select</string>
     <string name="execute_binding_misc">Binding</string>
     <string name="execute_layout_menu">Menu</string>
     <string name="execute_layout_keyboard">Keyboard</string>

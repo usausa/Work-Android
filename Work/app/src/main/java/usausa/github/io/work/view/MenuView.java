@@ -22,8 +22,8 @@ public class MenuView extends AppViewBase {
     // Event
     //--------------------------------------------------------------------------------
 
-    public void onClickBindingList() {
-        getNavigator().navigate(ViewId.BINDING_LIST);
+    public void onClickBindingSelect() {
+        getNavigator().navigate(ViewId.BINDING_SELECT);
     }
 
     public void onClickBindingMisc() {
