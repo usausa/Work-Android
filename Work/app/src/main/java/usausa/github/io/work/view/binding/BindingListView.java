@@ -138,7 +138,7 @@ public class BindingListView extends AppViewBase {
         }
     }
 
-    @BindingAdapter("list")
+    @BindingAdapter("list_binding_list")
     public static void setList(final ListView listView, final List<SelectedItem<DataEntity>> objects) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {
