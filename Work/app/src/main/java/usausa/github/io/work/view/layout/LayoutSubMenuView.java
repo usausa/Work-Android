@@ -6,7 +6,7 @@ import usausa.github.io.work.R;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 
-public class LayoutMenuView extends AppViewBase {
+public class LayoutSubMenuView extends AppViewBase {
 
     public final ObservableBoolean submenu = new ObservableBoolean();
 
@@ -16,7 +16,7 @@ public class LayoutMenuView extends AppViewBase {
 
     @Override
     protected int getViewId() {
-        return R.layout.view_layout_menu;
+        return R.layout.view_layout_sub_menu;
     }
 
     //--------------------------------------------------------------------------------

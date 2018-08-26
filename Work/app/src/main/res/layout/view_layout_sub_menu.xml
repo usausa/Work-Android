@@ -6,7 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable name="view" type="usausa.github.io.work.view.layout.LayoutMenuView"/>
+        <variable name="view" type="usausa.github.io.work.view.layout.LayoutSubMenuView"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

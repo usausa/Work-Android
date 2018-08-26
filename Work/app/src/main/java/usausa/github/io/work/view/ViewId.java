@@ -10,7 +10,7 @@ import usausa.github.io.work.view.binding.BindingMiscView;
 import usausa.github.io.work.view.helper.Navigator;
 import usausa.github.io.work.view.layout.LayoutExpandView;
 import usausa.github.io.work.view.layout.LayoutKeyboardView;
-import usausa.github.io.work.view.layout.LayoutMenuView;
+import usausa.github.io.work.view.layout.LayoutSubMenuView;
 
 public final class ViewId {
 
@@ -25,7 +25,7 @@ public final class ViewId {
     public static final int BINDING_SELECT = 101;
     public static final int BINDING_MISC = 102;
 
-    public static final int LAYOUT_MENU = 201;
+    public static final int LAYOUT_SUB_MENU = 201;
     public static final int LAYOUT_KEYBOARD = 202;
     public static final int LAYOUT_EXPAND = 203;
 
@@ -35,7 +35,7 @@ public final class ViewId {
         factories.put(MENU, MenuView::new);
         factories.put(BINDING_SELECT, BindingSelectView::new);
         factories.put(BINDING_MISC, BindingMiscView::new);
-        factories.put(LAYOUT_MENU, LayoutMenuView::new);
+        factories.put(LAYOUT_SUB_MENU, LayoutSubMenuView::new);
         factories.put(LAYOUT_KEYBOARD, LayoutKeyboardView::new);
         factories.put(LAYOUT_EXPAND, LayoutExpandView::new);
     }
