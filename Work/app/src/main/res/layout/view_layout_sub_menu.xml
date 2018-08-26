@@ -35,31 +35,201 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/functions"
-            visibility="@{view.submenu}">
+            visibility="@{view.submenu1}">
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/functions"
+            visibility="@{view.submenu2}">
             <Button
                 style="?android:attr/buttonBarStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/button_submenu"/>
+                android:background="@drawable/button_submenu"
+                android:text="@string/execute_button"
+                android:textSize="18sp"/>
             <Button
                 style="?android:attr/buttonBarStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/button_submenu"/>
+                android:background="@drawable/button_submenu"
+                android:text="@string/execute_button"
+                android:textSize="18sp"/>
             <Button
                 style="?android:attr/buttonBarStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/button_submenu"/>
+                android:background="@drawable/button_submenu"
+                android:text="@string/execute_button"
+                android:textSize="18sp"/>
             <Button
                 style="?android:attr/buttonBarStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/button_submenu"/>
+                android:background="@drawable/button_submenu"
+                android:text="@string/execute_button"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            app:layout_constraintBottom_toTopOf="@+id/functions"
+            visibility="@{view.submenu3}">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:text="@string/execute_button"
+                    android:textSize="18sp"/>
+            </LinearLayout>
         </LinearLayout>
 
         <include
@@ -72,8 +242,12 @@
             bind:view="@{view}"
             bind:f1Enable="@{true}"
             bind:f1Text="@{@string/execute_back}"
+            bind:f2Enable="@{true}"
+            bind:f2Text="@{@string/execute_option1}"
             bind:f3Enable="@{true}"
-            bind:f3Text="@{@string/execute_option}"/>
+            bind:f3Text="@{@string/execute_option2}"
+            bind:f4Enable="@{true}"
+            bind:f4Text="@{@string/execute_option3}"/>
 
     </android.support.constraint.ConstraintLayout>
 

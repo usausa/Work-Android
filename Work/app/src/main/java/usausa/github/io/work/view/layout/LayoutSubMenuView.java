@@ -8,7 +8,9 @@ import usausa.github.io.work.view.ViewId;
 
 public class LayoutSubMenuView extends AppViewBase {
 
-    public final ObservableBoolean submenu = new ObservableBoolean();
+    public final ObservableBoolean submenu1 = new ObservableBoolean();
+    public final ObservableBoolean submenu2 = new ObservableBoolean();
+    public final ObservableBoolean submenu3 = new ObservableBoolean();
 
     //--------------------------------------------------------------------------------
     // Layout
@@ -29,7 +31,23 @@ public class LayoutSubMenuView extends AppViewBase {
     }
 
     @Override
+    public void executeFunction2() {
+        submenu1.set(!submenu1.get());
+        submenu2.set(false);
+        submenu3.set(false);
+    }
+
+    @Override
     public void executeFunction3() {
-        submenu.set(!submenu.get());
+        submenu1.set(false);
+        submenu2.set(!submenu2.get());
+        submenu3.set(false);
+    }
+
+    @Override
+    public void executeFunction4() {
+        submenu1.set(false);
+        submenu2.set(false);
+        submenu3.set(!submenu3.get());
     }
 }
