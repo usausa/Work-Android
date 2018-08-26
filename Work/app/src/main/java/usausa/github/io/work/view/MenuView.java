@@ -22,12 +22,16 @@ public class MenuView extends AppViewBase {
     // Event
     //--------------------------------------------------------------------------------
 
+    public void onClickBindingMisc() {
+        getNavigator().navigate(ViewId.BINDING_MISC);
+    }
+
     public void onClickBindingSelect() {
         getNavigator().navigate(ViewId.BINDING_SELECT);
     }
 
-    public void onClickBindingMisc() {
-        getNavigator().navigate(ViewId.BINDING_MISC);
+    public void onClickBindingGroup() {
+        getNavigator().navigate(ViewId.BINDING_GROUP);
     }
 
     public void onClickLayoutSubMenu() {

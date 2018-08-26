@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="item" type="usausa.github.io.work.model.GroupingHeader&lt;usausa.github.io.work.service.GroupDataEntity&gt;"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/metroMagenta">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.value.group}"
+            android:textSize="36sp"/>
+
+    </LinearLayout>
+
+</layout>
