@@ -1,8 +1,12 @@
 package usausa.github.io.work;
 
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
 import javax.inject.Inject;
 
@@ -32,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getComponent().inject(this);
+
+        getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            View contentView = getWindow().getDecorView();
+            Rect rect = new Rect();
+            contentView.getWindowVisibleDisplayFrame(rect);
+            int screenHeight = contentView.getRootView().getHeight();
+            int keypadHeight = screenHeight - rect.bottom;
+            boolean show = keypadHeight > screenHeight * 0.15;
+
+            Log.d("DEBUG", String.format("****** screenHeight = %d, keypadHeight = %d, show = %s", screenHeight, keypadHeight, String.valueOf(show)));
+        });
 
         // Navigate
         navigator.navigate(ViewId.MENU);
