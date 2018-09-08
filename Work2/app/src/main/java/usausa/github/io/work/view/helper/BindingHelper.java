@@ -10,6 +10,11 @@ public final class BindingHelper {
         view.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
+    @BindingAdapter("using")
+    public static void setUsing(final View view, final boolean value) {
+        view.setVisibility(value ? View.VISIBLE : View.GONE);
+    }
+
     private BindingHelper() {
     }
 }

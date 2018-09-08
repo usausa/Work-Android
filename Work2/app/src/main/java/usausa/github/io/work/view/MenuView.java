@@ -13,28 +13,7 @@ public class MenuView extends AppViewBase {
         return R.layout.view_menu;
     }
 
-    @Override
-    protected boolean isDisplayUser() {
-        return false;
-    }
-
     //--------------------------------------------------------------------------------
     // Event
     //--------------------------------------------------------------------------------
-
-    public void onClickBindingList() {
-        getNavigator().navigate(ViewId.BINDING_LIST);
-    }
-
-    public void onClickBindingMisc() {
-        getNavigator().navigate(ViewId.BINDING_MISC);
-    }
-
-    public void onClickLayoutMenu() {
-        getNavigator().navigate(ViewId.LAYOUT_MENU);
-    }
-
-    public void onClickLayoutKeyboard() {
-        getNavigator().navigate(ViewId.LAYOUT_KEYBOARD);
-    }
 }
