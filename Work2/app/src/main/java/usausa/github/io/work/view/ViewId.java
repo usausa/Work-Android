@@ -5,8 +5,6 @@ import android.support.v4.app.Fragment;
 import java.util.HashMap;
 import java.util.Map;
 
-import usausa.github.io.work.view.helper.Navigator;
-
 public final class ViewId {
 
     @FunctionalInterface

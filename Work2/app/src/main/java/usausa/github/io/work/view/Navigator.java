@@ -1,4 +1,4 @@
-package usausa.github.io.work.view.helper;
+package usausa.github.io.work.view;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;

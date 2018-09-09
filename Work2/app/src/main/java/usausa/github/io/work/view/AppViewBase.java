@@ -12,12 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import usausa.github.io.work.BR;
-import usausa.github.io.work.view.helper.Navigator;
+import usausa.github.io.work.DummyClient;
+import usausa.github.io.work.MainActivity;
+import usausa.github.io.work.component.FragmentComponent;
+import usausa.github.io.work.model.TraceStorage;
 
 public abstract class AppViewBase extends Fragment {
 
@@ -26,7 +31,33 @@ public abstract class AppViewBase extends Fragment {
     private CompositeDisposable disposables;
 
     @Inject
+    DummyClient client;
+
+    @Inject
+    TraceStorage traceStorage;
+
+    @Inject
     Navigator navigator;
+
+    private FragmentComponent component;
+
+    @NonNull
+    private FragmentComponent getComponent() {
+        if (component == null) {
+            component = ((MainActivity)Objects.requireNonNull(getActivity())).getComponent().newFragmentComponent();
+        }
+        return component;
+    }
+
+    @NonNull
+    public DummyClient getClient() {
+        return client;
+    }
+
+    @NonNull
+    public TraceStorage getTraceStorage() {
+        return traceStorage;
+    }
 
     @NonNull
     protected Navigator getNavigator() {
@@ -48,6 +79,7 @@ public abstract class AppViewBase extends Fragment {
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
+        getComponent().inject(this);
     }
 
     @Override

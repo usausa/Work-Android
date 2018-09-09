@@ -1,13 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="usausa.github.io.work.Action"/>
         <variable name="view" type="usausa.github.io.work.view.MenuView"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ListView
+            list_trace_entry="@{view.list}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/functions"/>
+
+        <LinearLayout
+            android:id="@+id/functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_function1"
+                android:enabled="@{!view.executing}"
+                android:text="@{view.currentMode.toString()}"
+                android:textSize="18sp"/>
+
+            <Button
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_function2"
+                android:onClick="@{() -> view.executeAction(Action.ACTION1)}"
+                android:enabled="@{!view.executing &amp;&amp; view.currentMode.isEnableAction1()}"
+                android:text="@string/execute_action1"
+                android:textSize="18sp"/>
+
+            <Button
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_function3"
+                android:onClick="@{() -> view.executeAction(Action.ACTION2)}"
+                android:enabled="@{!view.executing &amp;&amp; view.currentMode.isEnableAction2()}"
+                android:text="@string/execute_action2"
+                android:textSize="18sp"/>
+
+            <Button
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_function4"
+                android:onClick="@{() -> view.executeClear()}"
+                android:enabled="@{!view.executing}"
+                android:text="@string/execute_clear"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 
