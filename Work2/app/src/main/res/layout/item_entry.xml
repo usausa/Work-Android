@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="usausa.github.io.work.helper.DateHelper"/>
+        <variable name="item" type="usausa.github.io.work.model.TraceEntry"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/date"
+            android:ems="6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@{DateHelper.format(`HH:mm:ss.SSS`, item.date)}"
+            entry_color="@{item}"/>
+
+        <TextView
+            android:id="@+id/type"
+            android:ems="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@{String.format(`[%s]`, item.type)}"
+            entry_color="@{item}"/>
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.message}"
+            android:textSize="12sp"
+            entry_color="@{item}"/>
+
+    </LinearLayout>
+
+</layout>
