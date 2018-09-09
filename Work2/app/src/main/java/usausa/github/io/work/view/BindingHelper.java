@@ -2,6 +2,7 @@ package usausa.github.io.work.view;
 
 import android.databinding.BindingAdapter;
 import android.graphics.Color;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -10,6 +11,11 @@ import java.util.List;
 import usausa.github.io.work.model.TraceEntry;
 
 public final class BindingHelper {
+
+    @BindingAdapter("visibility")
+    public static void setVisibility(final View view, final boolean value) {
+        view.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+    }
 
     @BindingAdapter("entry_color")
     public static void setEntryColor(final TextView view, final TraceEntry entry) {

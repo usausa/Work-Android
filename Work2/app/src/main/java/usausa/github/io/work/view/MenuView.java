@@ -18,6 +18,8 @@ public class MenuView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
+    public final ObservableBoolean showMenu = new ObservableBoolean();
+
     public final ObservableField<Mode> currentMode = new ObservableField<>();
 
     public ObservableList<TraceEntry> list;
@@ -63,22 +65,27 @@ public class MenuView extends AppViewBase {
         }
     }
 
-    // TODO menu
+    public void showMenu() {
+        showMenu.set(!showMenu.get());
+    }
 
     public void updateMode(final Mode mode) {
+        showMenu.set(false);
         currentMode.set(mode);
     }
 
     public void executeClear() {
+        showMenu.set(false);
         list.clear();
     }
 
     public void executeAction(final Action action) {
-        clearDisposable();
-
+        showMenu.set(false);
         executing.set(true);
+
         getTraceStorage().AddEntry(EventType.INFO, "Start.");
 
+        clearDisposable();
         disposable = Completable.fromAction(() -> getClient().execute(action))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

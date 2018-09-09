@@ -4,6 +4,7 @@
 
     <data>
         <import type="usausa.github.io.work.Action"/>
+        <import type="usausa.github.io.work.Mode"/>
         <variable name="view" type="usausa.github.io.work.view.MenuView"/>
     </data>
 
@@ -19,6 +20,55 @@
             app:layout_constraintBottom_toTopOf="@+id/functions"/>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/functions"
+            visibility="@{view.showMenu}">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:onClick="@{() -> view.updateMode(Mode.MODE1)}"
+                    android:text="@{Mode.MODE1.toString()}"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:onClick="@{() -> view.updateMode(Mode.MODE2)}"
+                    android:text="@{Mode.MODE2.toString()}"
+                    android:textSize="18sp"/>
+                <Button
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_submenu"
+                    android:onClick="@{() -> view.updateMode(Mode.MODE3)}"
+                    android:text="@{Mode.MODE3.toString()}"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/functions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/button_function1"
+                android:onClick="@{() -> view.showMenu()}"
                 android:enabled="@{!view.executing}"
                 android:text="@{view.currentMode.toString()}"
                 android:textSize="18sp"/>
