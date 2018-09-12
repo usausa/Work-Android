@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import java.util.HashMap;
 import java.util.Map;
 
+import usausa.github.io.work.model.Factory;
 import usausa.github.io.work.view.binding.BindingGroupView;
 import usausa.github.io.work.view.binding.BindingSelectView;
 import usausa.github.io.work.view.binding.BindingMiscView;
@@ -14,12 +15,6 @@ import usausa.github.io.work.view.layout.LayoutKeyboardView;
 import usausa.github.io.work.view.layout.LayoutSubMenuView;
 
 public final class ViewId {
-
-    @FunctionalInterface
-    private interface Factory<T> {
-
-        T get();
-    }
 
     public static final int MENU = 1;
 

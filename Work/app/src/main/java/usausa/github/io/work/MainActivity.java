@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
 import usausa.github.io.work.component.ActivityComponent;
 import usausa.github.io.work.component.ActivityModule;
 import usausa.github.io.work.view.helper.Navigator;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             int keypadHeight = screenHeight - rect.bottom;
             boolean show = keypadHeight > screenHeight * 0.15;
 
-            Log.d("DEBUG", String.format("****** screenHeight = %d, keypadHeight = %d, show = %s", screenHeight, keypadHeight, String.valueOf(show)));
+            Timber.d("****** screenHeight = %d, keypadHeight = %d, show = %s", screenHeight, keypadHeight, String.valueOf(show));
         });
 
         // Navigate

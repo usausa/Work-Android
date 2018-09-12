@@ -17,7 +17,7 @@ import java.util.List;
 
 import usausa.github.io.work.R;
 import usausa.github.io.work.databinding.ItemLayoutExpandBinding;
-import usausa.github.io.work.service.DataEntity;
+import usausa.github.io.work.service.data.DataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 

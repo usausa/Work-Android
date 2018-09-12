@@ -23,7 +23,7 @@ import io.reactivex.disposables.Disposable;
 import usausa.github.io.work.BR;
 import usausa.github.io.work.MainActivity;
 import usausa.github.io.work.component.FragmentComponent;
-import usausa.github.io.work.service.DataService;
+import usausa.github.io.work.service.data.DataService;
 import usausa.github.io.work.view.helper.Navigator;
 
 public abstract class AppViewBase extends Fragment {

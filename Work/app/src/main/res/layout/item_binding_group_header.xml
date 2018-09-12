@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="item" type="usausa.github.io.work.model.GroupingHeader&lt;usausa.github.io.work.service.GroupDataEntity&gt;"/>
+        <variable name="item" type="usausa.github.io.work.model.GroupingHeader&lt;usausa.github.io.work.service.data.GroupDataEntity&gt;"/>
     </data>
 
     <LinearLayout

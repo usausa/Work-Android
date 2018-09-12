@@ -21,7 +21,7 @@ import usausa.github.io.work.databinding.ItemBindingGroupBinding;
 import usausa.github.io.work.databinding.ItemBindingGroupHeaderBinding;
 import usausa.github.io.work.model.GroupingHeader;
 import usausa.github.io.work.model.GroupingItem;
-import usausa.github.io.work.service.GroupDataEntity;
+import usausa.github.io.work.service.data.GroupDataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 
@@ -114,12 +114,13 @@ public class BindingGroupView extends AppViewBase {
             return COUNT_TYPES;
         }
 
+        @SuppressWarnings("unchecked")
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
             Object entry = getItem(position);
             if (entry instanceof GroupingHeader) {
-                GroupingHeader header = ((GroupingHeader)entry);
+                GroupingHeader<GroupDataEntity> header = ((GroupingHeader<GroupDataEntity>)entry);
                 ItemBindingGroupHeaderBinding binding;
 
                 if (convertView != null) {
@@ -134,7 +135,7 @@ public class BindingGroupView extends AppViewBase {
                 binding.setItem(header);
                 return binding.getRoot();
             } else {
-                GroupingItem item = (GroupingItem)entry;
+                GroupingItem<GroupDataEntity> item = (GroupingItem<GroupDataEntity>)entry;
                 ItemBindingGroupBinding binding;
 
                 if (convertView != null) {

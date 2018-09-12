@@ -27,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 import usausa.github.io.work.R;
 import usausa.github.io.work.databinding.ItemBindingSelectBinding;
 import usausa.github.io.work.model.SelectedItem;
-import usausa.github.io.work.service.DataEntity;
+import usausa.github.io.work.service.data.DataEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 

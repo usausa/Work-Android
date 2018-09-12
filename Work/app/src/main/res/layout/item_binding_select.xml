@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="item" type="usausa.github.io.work.model.SelectedItem&lt;usausa.github.io.work.service.DataEntity&gt;"/>
+        <variable name="item" type="usausa.github.io.work.model.SelectedItem&lt;usausa.github.io.work.service.data.DataEntity&gt;"/>
     </data>
 
     <LinearLayout

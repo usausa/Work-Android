@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import usausa.github.io.work.service.DataService;
+import usausa.github.io.work.service.data.DataService;
 
 @Module
 public class ServiceModule {
