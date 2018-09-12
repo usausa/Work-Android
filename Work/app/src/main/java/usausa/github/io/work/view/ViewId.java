@@ -13,6 +13,7 @@ import usausa.github.io.work.view.helper.Navigator;
 import usausa.github.io.work.view.layout.LayoutExpandView;
 import usausa.github.io.work.view.layout.LayoutKeyboardView;
 import usausa.github.io.work.view.layout.LayoutSubMenuView;
+import usausa.github.io.work.view.misc.MiscTransferView;
 
 public final class ViewId {
 
@@ -26,6 +27,8 @@ public final class ViewId {
     public static final int LAYOUT_KEYBOARD = 202;
     public static final int LAYOUT_EXPAND = 203;
 
+    public static final int MISC_TRANSFER = 301;
+
     private static final Map<Integer, Factory<Fragment>> factories = new HashMap<>();
 
     static {
@@ -36,6 +39,7 @@ public final class ViewId {
         factories.put(LAYOUT_SUB_MENU, LayoutSubMenuView::new);
         factories.put(LAYOUT_KEYBOARD, LayoutKeyboardView::new);
         factories.put(LAYOUT_EXPAND, LayoutExpandView::new);
+        factories.put(MISC_TRANSFER, MiscTransferView::new);
     }
 
     public static Navigator.ViewFactory createFactory() {
