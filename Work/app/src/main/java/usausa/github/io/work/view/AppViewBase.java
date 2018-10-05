@@ -24,6 +24,7 @@ import usausa.github.io.work.BR;
 import usausa.github.io.work.MainActivity;
 import usausa.github.io.work.component.FragmentComponent;
 import usausa.github.io.work.service.data.DataService;
+import usausa.github.io.work.service.transfer.TransferService;
 import usausa.github.io.work.view.helper.Navigator;
 
 public abstract class AppViewBase extends Fragment {
@@ -44,6 +45,9 @@ public abstract class AppViewBase extends Fragment {
     @Inject
     DataService dataService;
 
+    @Inject
+    TransferService transferService;
+
     private FragmentComponent component;
 
     @NonNull
@@ -62,6 +66,11 @@ public abstract class AppViewBase extends Fragment {
     @NonNull
     protected DataService getDataService() {
         return dataService;
+    }
+
+    @NonNull
+    protected TransferService getTransferService() {
+        return transferService;
     }
 
     // --------------------------------------------------------------------------------

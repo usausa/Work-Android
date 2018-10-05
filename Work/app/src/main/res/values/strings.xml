@@ -18,10 +18,16 @@
     <string name="execute_mode2">Mode2</string>
     <string name="execute_mode3">Mode3</string>
     <string name="execute_button">Button</string>
+    <string name="execute_discover">Discover</string>
+    <string name="execute_send">Send</string>
+    <string name="execute_receive">Receive</string>
+    <string name="execute_cancel">Cancel</string>
 
     <string name="label_user_id">User Id</string>
     <string name="label_terminal_no">Terminal</string>
 
     <string name="message_waiting">Waiting</string>
+    <string name="message_discover">Discover</string>
+    <string name="message_executing">Executing</string>
 
 </resources>
