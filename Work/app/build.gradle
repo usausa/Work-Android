@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "usausa.github.io.work"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 27
         versionCode 1
         versionName "0.0.1"

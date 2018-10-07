@@ -30,6 +30,10 @@ public class MenuView extends AppViewBase {
         getNavigator().navigate(ViewId.BINDING_SELECT);
     }
 
+    public void onClickBindingAlternative() {
+        getNavigator().navigate(ViewId.BINDING_ALTERNATIVE);
+    }
+
     public void onClickBindingGroup() {
         getNavigator().navigate(ViewId.BINDING_GROUP);
     }

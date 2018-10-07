@@ -56,7 +56,7 @@ public class BindingSelectView extends AppViewBase {
     protected void onInitialize() {
         executing.set(true);
 
-        disposable = Single.fromCallable(() -> getDataService().queryEntityList(10000))
+        disposable = Single.fromCallable(() -> getDataService().queryEntityList(10000, 100))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {

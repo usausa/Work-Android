@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="item" type="usausa.github.io.work.service.data.DataEntity"/>
+        <variable name="index" type="int"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{index % 2 == 0 ? @color/white : @color/metroLighten}">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@{item.id}"
+            android:textSize="36sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.name}"
+            android:textSize="36sp"/>
+
+    </LinearLayout>
+
+</layout>

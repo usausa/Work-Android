@@ -8,7 +8,7 @@ import timber.log.Timber;
 
 public class DataService {
 
-    public List<DataEntity> queryEntityList(final int count) {
+    public List<DataEntity> queryEntityList(final int count, final int wait) {
         List<DataEntity> list = new ArrayList<>(count);
 
         for (int i = 1; i <= count; i++) {
@@ -20,7 +20,7 @@ public class DataService {
 
         // Dummy
         try {
-            Thread.sleep(200);
+            Thread.sleep(wait);
         } catch (InterruptedException e) {
             Timber.e(e);
         }

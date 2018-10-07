@@ -3,6 +3,7 @@
 
     <string name="execute_binding_misc">Binding</string>
     <string name="execute_binding_select">Select</string>
+    <string name="execute_binding_alternative">Alternative</string>
     <string name="execute_binding_group">Group</string>
     <string name="execute_layout_sub_menu">SubMenu</string>
     <string name="execute_layout_keyboard">Keyboard</string>

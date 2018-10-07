@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="view" type="usausa.github.io.work.view.binding.BindingAlternativeView"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/header"
+            bind:view="@{view}"/>
+
+        <LinearLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintBottom_toTopOf="@+id/functions">
+
+            <!--suppress AndroidUnknownAttribute -->
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                list_binding_alternative="@{view.list}"/>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/functions"
+            layout="@layout/functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:view="@{view}"
+            bind:f1Enable="@{!view.executing}"
+            bind:f1Text="@{@string/execute_back}"
+            bind:f4Enable="@{!view.executing}"
+            bind:f4Text="@{@string/execute_new}"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
