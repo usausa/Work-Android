@@ -7,6 +7,7 @@ import java.util.Map;
 
 import usausa.github.io.work.model.Factory;
 import usausa.github.io.work.view.binding.BindingAlternativeView;
+import usausa.github.io.work.view.binding.BindingClickableView;
 import usausa.github.io.work.view.binding.BindingGroupView;
 import usausa.github.io.work.view.binding.BindingSelectView;
 import usausa.github.io.work.view.binding.BindingMiscView;
@@ -23,7 +24,8 @@ public final class ViewId {
     public static final int BINDING_MISC = 101;
     public static final int BINDING_SELECT = 102;
     public static final int BINDING_ALTERNATIVE = 103;
-    public static final int BINDING_GROUP = 104;
+    public static final int BINDING_CLICKABLE = 104;
+    public static final int BINDING_GROUP = 105;
 
     public static final int LAYOUT_SUB_MENU = 201;
     public static final int LAYOUT_KEYBOARD = 202;
@@ -38,6 +40,7 @@ public final class ViewId {
         factories.put(BINDING_MISC, BindingMiscView::new);
         factories.put(BINDING_SELECT, BindingSelectView::new);
         factories.put(BINDING_ALTERNATIVE, BindingAlternativeView::new);
+        factories.put(BINDING_CLICKABLE, BindingClickableView::new);
         factories.put(BINDING_GROUP, BindingGroupView::new);
         factories.put(LAYOUT_SUB_MENU, LayoutSubMenuView::new);
         factories.put(LAYOUT_KEYBOARD, LayoutKeyboardView::new);
