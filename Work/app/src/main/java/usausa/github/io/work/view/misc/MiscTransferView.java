@@ -28,13 +28,7 @@ import usausa.github.io.work.view.ViewId;
 
 public class MiscTransferView extends AppViewBase {
 
-    public enum State {
-        NONE,
-        DISCOVER,
-        TRANSFER
-    }
-
-    public final ObservableField<State> executing = new ObservableField<>(State.NONE);
+    public final ObservableBoolean executing = new ObservableBoolean();
 
     public final ObservableArrayList<SelectedItem<DeviceInformation>> list = new ObservableArrayList<>();
 
@@ -57,28 +51,18 @@ public class MiscTransferView extends AppViewBase {
 
     @Override
     protected void onInitialize() {
-        addDisposable(getTransferService().getConnectedObservable()
-                .subscribe(x -> { /* ? */ }));
         addDisposable(getTransferService().getThisDeviceObservable()
                 .subscribe(information::set));
         addDisposable(getTransferService().getPeerDeviceObservable()
                 .subscribe(x -> {
+                    // TODO
                     selected.set(false);
                     list.clear();
                     list.addAll(Stream.of(x).map(SelectedItem::new).collect(Collectors.toList()));
-
-                    executing.set(State.NONE);
-                }));
-        addDisposable(getTransferService().getConnectionObservable()
-                .subscribe(x -> {
-
-                    executing.set(State.NONE);
                 }));
 
         getTransferService().start();
-
-        getTransferService().discover();
-        executing.set(State.DISCOVER);
+        getTransferService().startDiscover();
     }
 
     @Override
@@ -91,10 +75,10 @@ public class MiscTransferView extends AppViewBase {
     // Event
     //--------------------------------------------------------------------------------
 
-    public void selectList(final int position) {
-        SelectedItem<DeviceInformation> item = list.get(position);
-        item.setSelected(!item.isSelected());
-        selected.set(item.isSelected());
+    public void onItemClick(final int position) {
+//        SelectedItem<DeviceInformation> item = list.get(position);
+//        item.setSelected(!item.isSelected());
+//        selected.set(item.isSelected());
     }
 
     //--------------------------------------------------------------------------------
@@ -108,14 +92,7 @@ public class MiscTransferView extends AppViewBase {
 
     @Override
     public void executeFunction2() {
-        if (executing.get() == State.NONE) {
-            selected.set(false);
-            list.clear();
-            getTransferService().discover();
-            executing.set(State.DISCOVER);
-        } else if (executing.get() == State.DISCOVER) {
-            executing.set(State.NONE);
-        }
+        getTransferService().startDiscover();
     }
 
     @Override
@@ -124,9 +101,7 @@ public class MiscTransferView extends AppViewBase {
 
     @Override
     public void executeFunction4() {
-        DeviceInformation device = Stream.of(list).filter(SelectedItem::isSelected).findFirst().get().getValue();
-        executing.set(State.TRANSFER);
-        getTransferService().transfer(device.getAddress());
+        //getTransferService().transfer(device.getAddress());
     }
 
     //--------------------------------------------------------------------------------

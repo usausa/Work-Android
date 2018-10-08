@@ -6,7 +6,6 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="usausa.github.io.work.view.misc.MiscTransferView.State"/>
         <variable name="view" type="usausa.github.io.work.view.misc.MiscTransferView"/>
     </data>
 
@@ -26,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            visibility="@{view.executing != State.NONE}"
+            visibility="@{view.executing}"
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintBottom_toTopOf="@+id/functions">
 
@@ -38,7 +37,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{view.executing == State.DISCOVER ? @string/message_discover : @string/message_executing}"
+                android:text="@{@string/message_executing}"
                 android:textAlignment="center"
                 android:textSize="36sp"/>
 
@@ -60,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            visibility="@{view.executing == State.NONE}"
+            visibility="@{!view.executing}"
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintBottom_toTopOf="@+id/functions">
 
@@ -69,7 +68,7 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onItemClick="@{(p, v, pos, id) -> view.selectList(pos)}"
+                android:onItemClick="@{(p, v, pos, id) -> view.onItemClick(pos)}"
                 list_misc_transfer="@{view.list}"/>
 
         </LinearLayout>
@@ -82,13 +81,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             bind:view="@{view}"
-            bind:f1Enable="@{view.executing != State.TRANSFER}"
+            bind:f1Enable="@{!view.executing}"
             bind:f1Text="@{@string/execute_back}"
-            bind:f2Enable="@{view.executing != State.TRANSFER}"
-            bind:f2Text="@{view.executing == State.DISCOVER ? @string/execute_cancel : @string/execute_discover}"
-            bind:f3Enable="@{view.executing == State.NONE &amp;&amp; view.selected &amp;&amp; view.information != null}"
+            bind:f2Enable="@{!view.executing}"
+            bind:f2Text="@{@string/execute_discover}"
+            bind:f3Enable="@{!view.executing}"
             bind:f3Text="@{@string/execute_send}"
-            bind:f4Enable="@{view.executing == State.NONE &amp;&amp; view.selected &amp;&amp; view.information != null}"
+            bind:f4Enable="@{!view.executing}"
             bind:f4Text="@{@string/execute_receive}"/>
 
     </android.support.constraint.ConstraintLayout>

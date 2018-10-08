@@ -102,7 +102,7 @@ public class BindingSelectView extends AppViewBase {
     // Event
     //--------------------------------------------------------------------------------
 
-    public void selectList(final int position) {
+    public void onItemClick(final int position) {
         SelectedItem<DataEntity> item = list.get(position);
         item.setSelected(!item.isSelected());
     }

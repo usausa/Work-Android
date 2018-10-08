@@ -31,7 +31,6 @@
     <string name="label_terminal_no">Terminal</string>
 
     <string name="message_waiting">Waiting</string>
-    <string name="message_discover">Discover</string>
     <string name="message_executing">Executing</string>
 
 </resources>

@@ -34,17 +34,9 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
 
     private boolean enabled;
 
-    private final PublishSubject<Boolean> connectedObservable = PublishSubject.create();
-
     private final PublishSubject<DeviceInformation> thisDeviceObservable = PublishSubject.create();
 
     private final PublishSubject<DeviceInformation[]> peerDeviceObservable = PublishSubject.create();
-
-    private final PublishSubject<Boolean> connectionObservable = PublishSubject.create();
-
-    public Observable<Boolean> getConnectedObservable() {
-        return connectedObservable;
-    }
 
     public Observable<DeviceInformation> getThisDeviceObservable() {
         return thisDeviceObservable;
@@ -52,10 +44,6 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
 
     public Observable<DeviceInformation[]> getPeerDeviceObservable() {
         return peerDeviceObservable;
-    }
-
-    public Observable<Boolean> getConnectionObservable() {
-        return connectionObservable;
     }
 
     public TransferService(final Context context) {
@@ -109,8 +97,7 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
         enabled = false;
     }
 
-    // TODO discover
-    public void discover() {
+    public void startDiscover() {
         manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
@@ -138,10 +125,7 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
         });
     }
 
-    public void transfer(final String address) {
-        // TODO start1
-        // TODO start2
-
+    public void connect(final String address) {
         WifiP2pConfig config = new WifiP2pConfig();
         config.deviceAddress = address;
         manager.connect(channel, config, new WifiP2pManager.ActionListener() {
@@ -186,8 +170,6 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
     @Override
     public void onConnectionInfoAvailable(WifiP2pInfo info) {
         Timber.d("********** onConnectionInfoAvailable : info=[%s]", info.toString());
-
-        connectionObservable.onNext(true);
     }
 
     private class WiFiDirectReceiver extends BroadcastReceiver {
@@ -199,8 +181,6 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
                 // [MEMO] WiFiオン、オフで発生、pause/resumeは関係なし、通知し、非接続状態の時は処理を呼ばないようにする？
                 int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
                 Timber.d("********** EXTRA_WIFI_STATE : state=[%d]", state);
-
-                connectedObservable.onNext(state == WifiP2pManager.WIFI_P2P_STATE_ENABLED);
             } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
                 // [MEMO] discoverで発見時に発生、続けてrequestPeersを呼び出す
                 Timber.d("********** WIFI_P2P_PEERS_CHANGED_ACTION");
@@ -216,7 +196,7 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
                 // TODO ?
             } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
                 // [MEMO] Receiver登録時に発生、自分の情報を通知するだけ
-                WifiP2pDevice device = (WifiP2pDevice)intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE);
+                WifiP2pDevice device = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE);
                 Timber.d("********** WIFI_P2P_THIS_DEVICE_CHANGED_ACTION : name=[%s], address=[%s], type=[%s], type2=[%s], status=[%d]",
                         device.deviceName, device.deviceAddress, device.primaryDeviceType, device.secondaryDeviceType, device.status);
                 thisDeviceObservable.onNext(new DeviceInformation(device.deviceName, device.deviceAddress, device.status));
