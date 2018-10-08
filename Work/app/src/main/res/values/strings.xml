@@ -26,6 +26,7 @@
     <string name="execute_cancel">Cancel</string>
 
     <string name="button_information">Info</string>
+    <string name="button_connect">Con</string>
 
     <string name="label_user_id">User Id</string>
     <string name="label_terminal_no">Terminal</string>

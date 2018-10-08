@@ -14,23 +14,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
-
 import java.util.List;
 
 import usausa.github.io.work.R;
 import usausa.github.io.work.databinding.ItemMiscTransferBinding;
-import usausa.github.io.work.model.SelectedItem;
 import usausa.github.io.work.service.transfer.DeviceInformation;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
+import usausa.github.io.work.view.helper.ItemClickHandler;
 
-public class MiscTransferView extends AppViewBase {
+public class MiscTransferView extends AppViewBase implements ItemClickHandler<String> {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
-    public final ObservableArrayList<SelectedItem<DeviceInformation>> list = new ObservableArrayList<>();
+    public final ObservableArrayList<DeviceInformation> list = new ObservableArrayList<>();
 
     public final ObservableField<DeviceInformation> information = new ObservableField<>();
 
@@ -58,7 +55,7 @@ public class MiscTransferView extends AppViewBase {
                     // TODO
                     selected.set(false);
                     list.clear();
-                    list.addAll(Stream.of(x).map(SelectedItem::new).collect(Collectors.toList()));
+                    list.addAll(x);
                 }));
 
         getTransferService().start();
@@ -81,6 +78,11 @@ public class MiscTransferView extends AppViewBase {
 //        selected.set(item.isSelected());
     }
 
+    @Override
+    public void onClickItem(String item) {
+        getTransferService().connect(item);
+    }
+
     //--------------------------------------------------------------------------------
     // Function
     //--------------------------------------------------------------------------------
@@ -92,6 +94,7 @@ public class MiscTransferView extends AppViewBase {
 
     @Override
     public void executeFunction2() {
+        getTransferService().stopDiscover();
         getTransferService().startDiscover();
     }
 
@@ -108,10 +111,13 @@ public class MiscTransferView extends AppViewBase {
     // Adaptor
     //--------------------------------------------------------------------------------
 
-    private static final class ListViewAdaptor extends ArrayAdapter<SelectedItem<DeviceInformation>> {
+    private static final class ListViewAdaptor extends ArrayAdapter<DeviceInformation> {
 
-        public ListViewAdaptor(@NonNull final Context context, final List<SelectedItem<DeviceInformation>> objects) {
+        private final ItemClickHandler<String> handler;
+
+        public ListViewAdaptor(@NonNull final Context context, final List<DeviceInformation> objects, final ItemClickHandler<String> handler) {
             super(context, 0, objects);
+            this.handler = handler;
         }
 
         @NonNull
@@ -130,16 +136,17 @@ public class MiscTransferView extends AppViewBase {
             }
 
             binding.setItem(getItem(position));
+            binding.setHandler(handler);
 
             return binding.getRoot();
         }
     }
 
-    @BindingAdapter("list_misc_transfer")
-    public static void setList(final ListView listView, final List<SelectedItem<DeviceInformation>> objects) {
+    @BindingAdapter({"list_misc_transfer", "item_click_handler"})
+    public static void setList(final ListView listView, final List<DeviceInformation> objects, final ItemClickHandler<String> handler) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {
-            adaptor = new ListViewAdaptor(listView.getContext(), objects);
+            adaptor = new ListViewAdaptor(listView.getContext(), objects, handler);
             listView.setAdapter(adaptor);
         }
 

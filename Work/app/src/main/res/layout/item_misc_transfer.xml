@@ -4,34 +4,50 @@
 
     <data>
         <import type="java.lang.Integer" />
-        <variable name="item" type="usausa.github.io.work.model.SelectedItem&lt;usausa.github.io.work.service.transfer.DeviceInformation&gt;"/>
+        <variable name="item" type="usausa.github.io.work.service.transfer.DeviceInformation"/>
+        <variable name="handler" type="usausa.github.io.work.view.helper.ItemClickHandler&lt;String&gt;"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@{item.selected ? @color/metroMagenta : @color/white}">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="@{item.value.name}"
-            android:textSize="18sp"/>
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@{Integer.toString(item.status)}"
+            android:textSize="24sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="@{item.value.address}"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@{Integer.toString(item.value.status)}"
-            android:textSize="18sp"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.name}"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.address}"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/button_connect"
+            android:layout_gravity="center"
+            android:onClick="@{() -> handler.onClickItem(item.address)}"/>
 
     </LinearLayout>
 

@@ -24,7 +24,7 @@ import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 import usausa.github.io.work.view.helper.ItemClickHandler;
 
-public class BindingClickableView extends AppViewBase implements ItemClickHandler {
+public class BindingClickableView extends AppViewBase implements ItemClickHandler<String> {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
@@ -81,9 +81,9 @@ public class BindingClickableView extends AppViewBase implements ItemClickHandle
 
     private static final class ListViewAdaptor extends ArrayAdapter<DataEntity> {
 
-        private final ItemClickHandler handler;
+        private final ItemClickHandler<String> handler;
 
-        public ListViewAdaptor(@NonNull final Context context, final List<DataEntity> objects, final ItemClickHandler handler) {
+        public ListViewAdaptor(@NonNull final Context context, final List<DataEntity> objects, final ItemClickHandler<String> handler) {
             super(context, 0, objects);
             this.handler = handler;
         }
@@ -111,7 +111,7 @@ public class BindingClickableView extends AppViewBase implements ItemClickHandle
     }
 
     @BindingAdapter({"list_binding_clickable", "item_click_handler"})
-    public static void setList(final ListView listView, final List<DataEntity> objects, final ItemClickHandler handler) {
+    public static void setList(final ListView listView, final List<DataEntity> objects, final ItemClickHandler<String> handler) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {
             adaptor = new ListViewAdaptor(listView.getContext(), objects, handler);

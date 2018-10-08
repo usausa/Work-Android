@@ -14,6 +14,7 @@ import android.os.Looper;
 
 import com.annimon.stream.Stream;
 
+import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.Observable;
@@ -36,13 +37,13 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
 
     private final PublishSubject<DeviceInformation> thisDeviceObservable = PublishSubject.create();
 
-    private final PublishSubject<DeviceInformation[]> peerDeviceObservable = PublishSubject.create();
+    private final PublishSubject<List<DeviceInformation>> peerDeviceObservable = PublishSubject.create();
 
     public Observable<DeviceInformation> getThisDeviceObservable() {
         return thisDeviceObservable;
     }
 
-    public Observable<DeviceInformation[]> getPeerDeviceObservable() {
+    public Observable<List<DeviceInformation>> getPeerDeviceObservable() {
         return peerDeviceObservable;
     }
 
@@ -164,7 +165,7 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
         }
 
         // 一覧の通知、stopDiscover()した時に0件で発生することもある(必ずではない)
-        peerDeviceObservable.onNext(Stream.of(peers.getDeviceList()).map(x -> new DeviceInformation(x.deviceName, x.deviceAddress, x.status)).toArray(DeviceInformation[]::new));
+        peerDeviceObservable.onNext(Stream.of(peers.getDeviceList()).map(x -> new DeviceInformation(x.deviceName, x.deviceAddress, x.status)).toList());
     }
 
     @Override

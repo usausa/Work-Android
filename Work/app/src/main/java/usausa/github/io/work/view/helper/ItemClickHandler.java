@@ -1,6 +1,6 @@
 package usausa.github.io.work.view.helper;
 
-public interface ItemClickHandler {
+public interface ItemClickHandler<T> {
 
-    void onClickItem(String id);
+    void onClickItem(T item);
 }

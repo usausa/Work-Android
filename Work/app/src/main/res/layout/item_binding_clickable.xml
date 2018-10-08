@@ -4,7 +4,7 @@
 
     <data>
         <variable name="item" type="usausa.github.io.work.service.data.DataEntity"/>
-        <variable name="handler" type="usausa.github.io.work.view.helper.ItemClickHandler"/>
+        <variable name="handler" type="usausa.github.io.work.view.helper.ItemClickHandler&lt;String&gt;"/>
     </data>
 
     <LinearLayout
