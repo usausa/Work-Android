@@ -39,12 +39,18 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
 
     private final PublishSubject<List<DeviceInformation>> peerDeviceObservable = PublishSubject.create();
 
+    private final PublishSubject<ConnectInformation> connectObservable = PublishSubject.create();
+
     public Observable<DeviceInformation> getThisDeviceObservable() {
         return thisDeviceObservable;
     }
 
     public Observable<List<DeviceInformation>> getPeerDeviceObservable() {
         return peerDeviceObservable;
+    }
+
+    public Observable<ConnectInformation> getConnectObservable() {
+        return connectObservable;
     }
 
     public TransferService(final Context context) {
@@ -171,6 +177,8 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
     @Override
     public void onConnectionInfoAvailable(WifiP2pInfo info) {
         Timber.d("********** onConnectionInfoAvailable : info=[%s]", info.toString());
+
+        connectObservable.onNext(new ConnectInformation(info.groupFormed, info.groupOwnerAddress));
     }
 
     private class WiFiDirectReceiver extends BroadcastReceiver {
