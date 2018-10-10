@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.Arrays;
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import java.util.List;
 
 import usausa.github.io.work.R;
@@ -47,7 +49,6 @@ public class BindingGroupView extends AppViewBase {
         getNavigator().navigate(ViewId.MENU);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void executeFunction4() {
         GroupDataEntity dataA1 = new GroupDataEntity();
@@ -62,8 +63,10 @@ public class BindingGroupView extends AppViewBase {
         dataB1.setGroup("B");
         dataB1.setName("B-1");
 
-        list.add(GroupingItem.<GroupDataEntity>MakeHeader(Arrays.asList(GroupingItem.MakeChild(dataA1), GroupingItem.MakeChild(dataA2))));
-        list.add(GroupingItem.MakeSingle(dataB1));
+        Stream.of(dataA1, dataA2, dataB1)
+                .chunkBy(GroupDataEntity::getGroup)
+                .map(x -> x.size() == 1 ? GroupingItem.MakeSingle(x.get(0)) : GroupingItem.MakeHeader(Stream.of(x).map(GroupingItem::MakeChild).collect(Collectors.toList())))
+                .collect(Collectors.toCollection(() -> list));
     }
 
     //--------------------------------------------------------------------------------

@@ -58,15 +58,15 @@ public class GroupingItem<T> extends BaseObservable {
         this.children = children;
     }
 
-    public static <T> GroupingItem MakeHeader(final List<GroupingItem<T>> children) {
-        return new GroupingItem<T>(GroupingItemType.HEADER, children.get(0).getValue(), children);
+    public static <T> GroupingItem<T> MakeHeader(final List<GroupingItem<T>> children) {
+        return new GroupingItem<>(GroupingItemType.HEADER, children.get(0).getValue(), children);
     }
 
-    public static <T> GroupingItem MakeChild(T value) {
-        return new GroupingItem<T>(GroupingItemType.CHILD, value, null);
+    public static <T> GroupingItem<T> MakeChild(T value) {
+        return new GroupingItem<>(GroupingItemType.CHILD, value, null);
     }
 
-    public static <T> GroupingItem MakeSingle(T value) {
-        return new GroupingItem<T>(GroupingItemType.SINGLE, value, null);
+    public static <T> GroupingItem<T> MakeSingle(T value) {
+        return new GroupingItem<>(GroupingItemType.SINGLE, value, null);
     }
 }
