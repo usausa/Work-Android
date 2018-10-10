@@ -135,6 +135,7 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
     public void connect(final String address) {
         WifiP2pConfig config = new WifiP2pConfig();
         config.deviceAddress = address;
+        config.groupOwnerIntent = 0;
         manager.connect(channel, config, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
