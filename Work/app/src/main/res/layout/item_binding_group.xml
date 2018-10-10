@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="item" type="usausa.github.io.work.model.GroupingItem&lt;usausa.github.io.work.service.data.GroupDataEntity&gt;"/>
+        <variable name="item" type="usausa.github.io.work.model.GroupingItem&lt;usausa.github.io.work.service.data.GroupDataHeaderEntity, usausa.github.io.work.service.data.GroupDataEntity&gt;"/>
     </data>
 
     <LinearLayout
@@ -15,6 +15,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{item.value.name}"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            using="@{item.header}"
+            android:text="@{String.valueOf(item.headerValue.selected)}"
             android:textSize="24sp" />
 
     </LinearLayout>

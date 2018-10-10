@@ -3,17 +3,28 @@ package usausa.github.io.work.model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import java.util.List;
 
 import usausa.github.io.work.BR;
 
-public class GroupingItem<T> extends BaseObservable {
+public class GroupingItem<THeader, TValue> extends BaseObservable {
+
+    private enum GroupingItemType {
+        SINGLE,
+        HEADER,
+        CHILD
+    }
 
     private final GroupingItemType itemType;
 
-    private final T value;
+    private final TValue value;
 
-    private final List<GroupingItem<T>> children;
+    private final THeader headerValue;
+
+    private final List<GroupingItem<THeader, TValue>> children;
 
     private boolean expanded;
 
@@ -23,9 +34,8 @@ public class GroupingItem<T> extends BaseObservable {
         return GroupingItemType.HEADER.equals(itemType);
     }
 
-    @Bindable
-    public T getValue() {
-        return value;
+    public boolean isChild() {
+        return GroupingItemType.CHILD.equals(itemType);
     }
 
     @Bindable
@@ -48,25 +58,35 @@ public class GroupingItem<T> extends BaseObservable {
         notifyPropertyChanged(BR.selected);
     }
 
-    public List<GroupingItem<T>> getChildren() {
+    @Bindable
+    public TValue getValue() {
+        return value;
+    }
+
+    public THeader getHeaderValue() {
+        return headerValue;
+    }
+
+    public List<GroupingItem<THeader, TValue>> getChildren() {
         return children;
     }
 
-    public GroupingItem(final GroupingItemType itemType, final T value, final List<GroupingItem<T>> children) {
+    private GroupingItem(final GroupingItemType itemType, final TValue value, final THeader headerValue, final List<GroupingItem<THeader, TValue>> children) {
         this.itemType = itemType;
         this.value = value;
+        this.headerValue = headerValue;
         this.children = children;
     }
 
-    public static <T> GroupingItem<T> MakeHeader(final List<GroupingItem<T>> children) {
-        return new GroupingItem<>(GroupingItemType.HEADER, children.get(0).getValue(), children);
+    public static <THeader, TValue> GroupingItem<THeader, TValue> MakeHeader(THeader header, final List<TValue> children) {
+        return new GroupingItem<>(GroupingItemType.HEADER, children.get(0), header, Stream.of(children).map(x -> MakeChild(x, header)).collect(Collectors.toList()));
     }
 
-    public static <T> GroupingItem<T> MakeChild(T value) {
-        return new GroupingItem<>(GroupingItemType.CHILD, value, null);
+    private static <THeader, TValue> GroupingItem<THeader, TValue> MakeChild(TValue value, THeader headerValue) {
+        return new GroupingItem<>(GroupingItemType.CHILD, value, headerValue, null);
     }
 
-    public static <T> GroupingItem<T> MakeSingle(T value) {
-        return new GroupingItem<>(GroupingItemType.SINGLE, value, null);
+    public static <THeader, TValue> GroupingItem<THeader, TValue> MakeSingle(TValue value) {
+        return new GroupingItem<>(GroupingItemType.SINGLE, value, null, null);
     }
 }

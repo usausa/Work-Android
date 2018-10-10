@@ -22,6 +22,7 @@ import usausa.github.io.work.R;
 import usausa.github.io.work.databinding.ItemBindingGroupBinding;
 import usausa.github.io.work.model.GroupingItem;
 import usausa.github.io.work.service.data.GroupDataEntity;
+import usausa.github.io.work.service.data.GroupDataHeaderEntity;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
 
@@ -29,7 +30,7 @@ public class BindingGroupView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
-    public final ObservableArrayList<GroupingItem<GroupDataEntity>> list = new ObservableArrayList<>();
+    public final ObservableArrayList<GroupingItem<GroupDataHeaderEntity, GroupDataEntity>> list = new ObservableArrayList<>();
 
     //--------------------------------------------------------------------------------
     // Layout
@@ -65,7 +66,7 @@ public class BindingGroupView extends AppViewBase {
 
         Stream.of(dataA1, dataA2, dataB1)
                 .chunkBy(GroupDataEntity::getGroup)
-                .map(x -> x.size() == 1 ? GroupingItem.MakeSingle(x.get(0)) : GroupingItem.MakeHeader(Stream.of(x).map(GroupingItem::MakeChild).collect(Collectors.toList())))
+                .map(x -> x.size() == 1 ? GroupingItem.<GroupDataHeaderEntity, GroupDataEntity>MakeSingle(x.get(0)) : GroupingItem.MakeHeader(new GroupDataHeaderEntity(), x))
                 .collect(Collectors.toCollection(() -> list));
     }
 
@@ -74,7 +75,7 @@ public class BindingGroupView extends AppViewBase {
     //--------------------------------------------------------------------------------
 
     public void selectList(final int position) {
-        GroupingItem<GroupDataEntity> item = list.get(position);
+        GroupingItem<GroupDataHeaderEntity, GroupDataEntity> item = list.get(position);
         if (item.isHeader()) {
             item.setExpanded(!item.isExpanded());
             if (item.isExpanded()) {
@@ -84,6 +85,9 @@ public class BindingGroupView extends AppViewBase {
             }
         } else {
             item.setSelected(!item.isSelected());
+            if (item.isChild()) {
+                item.getHeaderValue().setSelected(item.getHeaderValue().getSelected() + (item.isSelected() ? 1 : -1));
+            }
         }
     }
 
@@ -91,9 +95,9 @@ public class BindingGroupView extends AppViewBase {
     // Adaptor
     //--------------------------------------------------------------------------------
 
-    private static final class ListViewAdaptor extends ArrayAdapter<GroupingItem<GroupDataEntity>> {
+    private static final class ListViewAdaptor extends ArrayAdapter<GroupingItem<GroupDataHeaderEntity, GroupDataEntity>> {
 
-        public ListViewAdaptor(@NonNull final Context context, final List<GroupingItem<GroupDataEntity>> objects) {
+        public ListViewAdaptor(@NonNull final Context context, final List<GroupingItem<GroupDataHeaderEntity, GroupDataEntity>> objects) {
             super(context, 0, objects);
         }
 
@@ -119,7 +123,7 @@ public class BindingGroupView extends AppViewBase {
     }
 
     @BindingAdapter("list_binding_group")
-    public static void setList(final ListView listView, final List<GroupingItem<GroupDataEntity>> objects) {
+    public static void setList(final ListView listView, final List<GroupingItem<GroupDataHeaderEntity, GroupDataEntity>> objects) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {
             adaptor = new ListViewAdaptor(listView.getContext(), objects);
