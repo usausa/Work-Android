@@ -14,6 +14,7 @@ import android.os.Looper;
 
 import com.annimon.stream.Stream;
 
+import java.net.InetAddress;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +23,11 @@ import io.reactivex.subjects.PublishSubject;
 import timber.log.Timber;
 
 public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pManager.PeerListListener, WifiP2pManager.ConnectionInfoListener {
+
+    public enum Operation {
+        SEND,
+        RECEIVE
+    }
 
     private final Context context;
 
@@ -179,7 +185,7 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
     public void onConnectionInfoAvailable(WifiP2pInfo info) {
         Timber.d("********** onConnectionInfoAvailable : info=[%s]", info.toString());
 
-        connectObservable.onNext(new ConnectInformation(info.groupFormed, info.groupOwnerAddress));
+        connectObservable.onNext(new ConnectInformation(info.groupFormed, info.isGroupOwner, info.groupOwnerAddress));
     }
 
     private class WiFiDirectReceiver extends BroadcastReceiver {
@@ -212,5 +218,20 @@ public class TransferService implements WifiP2pManager.ChannelListener, WifiP2pM
                 thisDeviceObservable.onNext(new DeviceInformation(device.deviceName, device.deviceAddress, device.status));
             }
         }
+    }
+
+    //--------------------------------------------------------------------------------
+    // Transfer
+    //--------------------------------------------------------------------------------
+
+    public boolean transfer(final InetAddress address, final Operation operation) {
+        Timber.d("********** transfer : address=[%s], operation=[%s]", address != null ? address.toString() : "", operation.toString());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
+
+        return true;
     }
 }

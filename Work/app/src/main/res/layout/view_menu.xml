@@ -103,8 +103,17 @@
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> view.onClickMiscTransfer()}"
-                android:text="@string/execute_misc_transfer"
+                android:onClick="@{() -> view.onClickMiscTransferSend()}"
+                android:text="@string/execute_misc_transfer_send"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> view.onClickMiscTransferReceive()}"
+                android:text="@string/execute_misc_transfer_receive"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textSize="18sp"/>
 

@@ -13,25 +13,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 
 import java.util.List;
 
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 import usausa.github.io.work.R;
 import usausa.github.io.work.databinding.ItemMiscTransferBinding;
+import usausa.github.io.work.model.SelectedItem;
+import usausa.github.io.work.service.transfer.ConnectInformation;
 import usausa.github.io.work.service.transfer.DeviceInformation;
+import usausa.github.io.work.service.transfer.TransferService;
 import usausa.github.io.work.view.AppViewBase;
 import usausa.github.io.work.view.ViewId;
-import usausa.github.io.work.view.helper.ItemClickHandler;
 
-public class MiscTransferView extends AppViewBase implements ItemClickHandler<String> {
+public class MiscTransferSendView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
-    public final ObservableArrayList<DeviceInformation> list = new ObservableArrayList<>();
-
     public final ObservableField<DeviceInformation> information = new ObservableField<>();
 
-    public final ObservableBoolean selected = new ObservableBoolean();
+    public final ObservableArrayList<SelectedItem<DeviceInformation>> list = new ObservableArrayList<>();
+
+    public final ObservableBoolean executable = new ObservableBoolean();
+
+    private SelectedItem<DeviceInformation> lastSelected;
 
     //--------------------------------------------------------------------------------
     // Layout
@@ -39,7 +51,7 @@ public class MiscTransferView extends AppViewBase implements ItemClickHandler<St
 
     @Override
     protected int getViewId() {
-        return R.layout.view_misc_transfer;
+        return R.layout.view_misc_transfer_send;
     }
 
     //--------------------------------------------------------------------------------
@@ -50,12 +62,15 @@ public class MiscTransferView extends AppViewBase implements ItemClickHandler<St
     protected void onInitialize() {
         addDisposable(getTransferService().getThisDeviceObservable()
                 .subscribe(information::set));
+        addDisposable(getTransferService().getConnectObservable()
+                .subscribe(this::startTransfer));
         addDisposable(getTransferService().getPeerDeviceObservable()
                 .subscribe(x -> {
-                    // TODO
-                    selected.set(false);
+                    lastSelected = null;
+                    executable.set(false);
+
                     list.clear();
-                    list.addAll(x);
+                    Stream.of(x).map(SelectedItem::new).collect(Collectors.toCollection(() -> list));
                 }));
 
         getTransferService().start();
@@ -73,14 +88,19 @@ public class MiscTransferView extends AppViewBase implements ItemClickHandler<St
     //--------------------------------------------------------------------------------
 
     public void onItemClick(final int position) {
-//        SelectedItem<DeviceInformation> item = list.get(position);
-//        item.setSelected(!item.isSelected());
-//        selected.set(item.isSelected());
-    }
+        SelectedItem<DeviceInformation> item = list.get(position);
+        if (lastSelected == item) {
+            lastSelected.setSelected(!lastSelected.isSelected());
+        } else {
+            if (lastSelected != null) {
+                lastSelected.setSelected(false);
+            }
 
-    @Override
-    public void onClickItem(String item) {
-        getTransferService().connect(item);
+            item.setSelected(true);
+            lastSelected = item;
+        }
+
+        executable.set(lastSelected.isSelected());
     }
 
     //--------------------------------------------------------------------------------
@@ -104,20 +124,57 @@ public class MiscTransferView extends AppViewBase implements ItemClickHandler<St
 
     @Override
     public void executeFunction4() {
-        //getTransferService().transfer(device.getAddress());
+        getTransferService().connect(lastSelected.getValue().getAddress());
+    }
+
+    //--------------------------------------------------------------------------------
+    // Helper
+    //--------------------------------------------------------------------------------
+
+    private void startTransfer(final ConnectInformation info) {
+        if (!info.isSuccess()) {
+            restart();
+            return;
+        }
+
+        executing.set(true);
+        addDisposable(Single.fromCallable(() -> getTransferService().transfer(info.isOwner() ? null : info.getAddress(), TransferService.Operation.SEND))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        result -> {
+                            if (result) {
+                                getNavigator().navigate(ViewId.MENU);
+                            } else {
+                                executing.set(false);
+                                restart();
+                            }
+                        },
+                        t -> {
+                            Timber.e(t);
+                            Toast.makeText(getContext(), executing.toString(), Toast.LENGTH_LONG).show();
+
+                            executing.set(false);
+                            restart();
+                        }));
+    }
+
+    private void restart() {
+        getTransferService().stopDiscover();
+        getTransferService().stop();
+
+        getTransferService().start();
+        getTransferService().startDiscover();
     }
 
     //--------------------------------------------------------------------------------
     // Adaptor
     //--------------------------------------------------------------------------------
 
-    private static final class ListViewAdaptor extends ArrayAdapter<DeviceInformation> {
+    private static final class ListViewAdaptor extends ArrayAdapter<SelectedItem<DeviceInformation>> {
 
-        private final ItemClickHandler<String> handler;
-
-        public ListViewAdaptor(@NonNull final Context context, final List<DeviceInformation> objects, final ItemClickHandler<String> handler) {
+        public ListViewAdaptor(@NonNull final Context context, final List<SelectedItem<DeviceInformation>> objects) {
             super(context, 0, objects);
-            this.handler = handler;
         }
 
         @NonNull
@@ -136,17 +193,16 @@ public class MiscTransferView extends AppViewBase implements ItemClickHandler<St
             }
 
             binding.setItem(getItem(position));
-            binding.setHandler(handler);
 
             return binding.getRoot();
         }
     }
 
-    @BindingAdapter({"list_misc_transfer", "item_click_handler"})
-    public static void setList(final ListView listView, final List<DeviceInformation> objects, final ItemClickHandler<String> handler) {
+    @BindingAdapter("list_misc_transfer")
+    public static void setList(final ListView listView, final List<SelectedItem<DeviceInformation>> objects) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {
-            adaptor = new ListViewAdaptor(listView.getContext(), objects, handler);
+            adaptor = new ListViewAdaptor(listView.getContext(), objects);
             listView.setAdapter(adaptor);
         }
 
