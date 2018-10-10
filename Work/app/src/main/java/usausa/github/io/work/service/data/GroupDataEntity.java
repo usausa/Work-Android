@@ -11,6 +11,8 @@ public class GroupDataEntity extends BaseObservable {
 
     private String name;
 
+    private String option;
+
     @Bindable
     public String getGroup() {
         return group;
@@ -29,5 +31,15 @@ public class GroupDataEntity extends BaseObservable {
     public void setName(final String name) {
         this.name = name;
         notifyPropertyChanged(BR.name);
+    }
+
+    @Bindable
+    public String getOption() {
+        return option;
+    }
+
+    public void setOption(final String option) {
+        this.option = option;
+        notifyPropertyChanged(BR.option);
     }
 }

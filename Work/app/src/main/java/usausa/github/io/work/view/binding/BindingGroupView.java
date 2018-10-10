@@ -18,8 +18,6 @@ import java.util.List;
 
 import usausa.github.io.work.R;
 import usausa.github.io.work.databinding.ItemBindingGroupBinding;
-import usausa.github.io.work.databinding.ItemBindingGroupHeaderBinding;
-import usausa.github.io.work.model.GroupingHeader;
 import usausa.github.io.work.model.GroupingItem;
 import usausa.github.io.work.service.data.GroupDataEntity;
 import usausa.github.io.work.view.AppViewBase;
@@ -29,7 +27,7 @@ public class BindingGroupView extends AppViewBase {
 
     public final ObservableBoolean executing = new ObservableBoolean();
 
-    public final ObservableArrayList<Object> list = new ObservableArrayList<>();
+    public final ObservableArrayList<GroupingItem<GroupDataEntity>> list = new ObservableArrayList<>();
 
     //--------------------------------------------------------------------------------
     // Layout
@@ -49,20 +47,23 @@ public class BindingGroupView extends AppViewBase {
         getNavigator().navigate(ViewId.MENU);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void executeFunction4() {
         GroupDataEntity dataA1 = new GroupDataEntity();
         dataA1.setGroup("A");
         dataA1.setName("A-1");
+        dataA1.setOption("1");
         GroupDataEntity dataA2 = new GroupDataEntity();
         dataA2.setGroup("A");
         dataA2.setName("A-2");
+        dataA2.setOption("2");
         GroupDataEntity dataB1 = new GroupDataEntity();
         dataB1.setGroup("B");
         dataB1.setName("B-1");
 
-        list.add(new GroupingHeader<>(Arrays.asList(new GroupingItem<>(dataA1), new GroupingItem<>(dataA2))));
-        list.add(new GroupingHeader<>(Arrays.asList(new GroupingItem<>(dataB1))));
+        list.add(GroupingItem.<GroupDataEntity>MakeHeader(Arrays.asList(GroupingItem.MakeChild(dataA1), GroupingItem.MakeChild(dataA2))));
+        list.add(GroupingItem.MakeSingle(dataB1));
     }
 
     //--------------------------------------------------------------------------------
@@ -70,17 +71,15 @@ public class BindingGroupView extends AppViewBase {
     //--------------------------------------------------------------------------------
 
     public void selectList(final int position) {
-        Object entry = list.get(position);
-        if (entry instanceof GroupingHeader) {
-            GroupingHeader header = ((GroupingHeader)entry);
-            header.setExpanded(!header.isExpanded());
-            if (header.isExpanded()) {
-                list.addAll(position + 1, header.getItems());
+        GroupingItem<GroupDataEntity> item = list.get(position);
+        if (item.isHeader()) {
+            item.setExpanded(!item.isExpanded());
+            if (item.isExpanded()) {
+                list.addAll(position + 1, item.getChildren());
             } else {
-                list.subList(position + 1, position + 1 + header.getItems().size()).clear();
+                list.subList(position + 1, position + 1 + item.getChildren().size()).clear();
             }
-        } else if (entry instanceof GroupingItem) {
-            GroupingItem item = (GroupingItem)entry;
+        } else {
             item.setSelected(!item.isSelected());
         }
     }
@@ -89,72 +88,35 @@ public class BindingGroupView extends AppViewBase {
     // Adaptor
     //--------------------------------------------------------------------------------
 
-    private static final class ListViewAdaptor extends ArrayAdapter<Object> {
+    private static final class ListViewAdaptor extends ArrayAdapter<GroupingItem<GroupDataEntity>> {
 
-        private static final int TYPE_HEADER= 0;
-        private static final int TYPE_ITEM = 1;
-        private static final int COUNT_TYPES = TYPE_ITEM + 1;
-
-        public ListViewAdaptor(@NonNull final Context context, final List<Object> objects) {
+        public ListViewAdaptor(@NonNull final Context context, final List<GroupingItem<GroupDataEntity>> objects) {
             super(context, 0, objects);
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            Object entry = getItem(position);
-            if (entry instanceof GroupingHeader) {
-                return TYPE_HEADER;
-            } else {
-                return TYPE_ITEM;
-            }
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return COUNT_TYPES;
         }
 
         @SuppressWarnings("unchecked")
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
-            Object entry = getItem(position);
-            if (entry instanceof GroupingHeader) {
-                GroupingHeader<GroupDataEntity> header = ((GroupingHeader<GroupDataEntity>)entry);
-                ItemBindingGroupHeaderBinding binding;
+            ItemBindingGroupBinding binding;
 
-                if (convertView != null) {
-                    binding = (ItemBindingGroupHeaderBinding)convertView.getTag();
-                } else {
-                    LayoutInflater inflater = LayoutInflater.from(getContext());
-                    binding = DataBindingUtil.inflate(inflater, R.layout.item_binding_group_header, parent, false);
-                    convertView = binding.getRoot();
-                    convertView.setTag(binding);
-                }
+            if (convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                binding = DataBindingUtil.inflate(inflater, R.layout.item_binding_group, parent, false);
 
-                binding.setItem(header);
-                return binding.getRoot();
+                convertView = binding.getRoot();
+                convertView.setTag(binding);
             } else {
-                GroupingItem<GroupDataEntity> item = (GroupingItem<GroupDataEntity>)entry;
-                ItemBindingGroupBinding binding;
-
-                if (convertView != null) {
-                    binding = (ItemBindingGroupBinding)convertView.getTag();
-                } else {
-                    LayoutInflater inflater = LayoutInflater.from(getContext());
-                    binding = DataBindingUtil.inflate(inflater, R.layout.item_binding_group, parent, false);
-                    convertView = binding.getRoot();
-                    convertView.setTag(binding);
-                }
-
-                binding.setItem(item);
-                return binding.getRoot();
+                binding = (ItemBindingGroupBinding) convertView.getTag();
             }
+
+            binding.setItem(getItem(position));
+            return binding.getRoot();
         }
     }
 
     @BindingAdapter("list_binding_group")
-    public static void setList(final ListView listView, final List<Object> objects) {
+    public static void setList(final ListView listView, final List<GroupingItem<GroupDataEntity>> objects) {
         ListViewAdaptor adaptor = (ListViewAdaptor)listView.getAdapter();
         if (adaptor == null) {
             adaptor = new ListViewAdaptor(listView.getContext(), objects);
