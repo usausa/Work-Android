@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable name="view" type="usausa.github.io.work.view.misc.MiscTransferSendView"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/header"
+            bind:view="@{view}"/>
+
+        <LinearLayout
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            visibility="@{view.executing}"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintBottom_toTopOf="@+id/functions">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/message_executing}"
+                android:textAlignment="center"
+                android:textSize="36sp"/>
+
+            <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            visibility="@{!view.executing}"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintBottom_toTopOf="@+id/functions">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/metroLightGreen"
+                    android:text="@{view.information.name}"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/metroLightGreen"
+                    android:text="@{view.information.address}"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <!--suppress AndroidUnknownAttribute -->
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onItemClick="@{(p, v, pos, id) -> view.onItemClick(pos)}"
+                list_misc_transfer="@{view.list}"/>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/functions"
+            layout="@layout/functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:view="@{view}"
+            bind:f1Enable="@{!view.executing}"
+            bind:f1Text="@{@string/execute_back}"
+            bind:f2Enable="@{!view.executing}"
+            bind:f2Text="@{@string/execute_discover}"
+            bind:f4Enable="@{!view.executing &amp;&amp; view.executable}"
+            bind:f4Text="@{@string/execute_send}"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
