@@ -9,20 +9,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{item.header ? @color/metroMagenta : item.selected ? @color/metroBlueBrighter : @color/white}">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.value.name}"
-            android:textSize="24sp" />
+            android:orientation="horizontal"
+            android:background="@{item.header ? @color/metroMagenta : item.selected ? @color/metroBlueBrighter : @color/white}"
+            using="@{item.visible}">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            using="@{item.header}"
-            android:text="@{String.valueOf(item.headerValue.selected)}"
-            android:textSize="24sp" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                using="@{item.header}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.value.name}"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                using="@{item.header}"
+                android:text="@{String.valueOf(item.headerValue.selected)}"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/dividerVertical"
+            using="@{item.visible}"/>
 
     </LinearLayout>
 

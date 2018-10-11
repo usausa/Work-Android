@@ -30,6 +30,8 @@ public class GroupingItem<THeader, TValue> extends BaseObservable {
 
     private boolean selected;
 
+    private boolean visible;
+
     public boolean isHeader() {
         return GroupingItemType.HEADER.equals(itemType);
     }
@@ -38,14 +40,15 @@ public class GroupingItem<THeader, TValue> extends BaseObservable {
         return GroupingItemType.CHILD.equals(itemType);
     }
 
-    @Bindable
     public boolean isExpanded() {
         return expanded;
     }
 
     public void setExpanded(final boolean expanded) {
         this.expanded = expanded;
-        notifyPropertyChanged(BR.expanded);
+        for (GroupingItem<THeader, TValue> child : children) {
+            child.setVisible(expanded);
+        }
     }
 
     @Bindable
@@ -59,6 +62,16 @@ public class GroupingItem<THeader, TValue> extends BaseObservable {
     }
 
     @Bindable
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(final boolean visible) {
+        this.visible = visible;
+        notifyPropertyChanged(BR.visible);
+    }
+
+    @Bindable
     public TValue getValue() {
         return value;
     }
@@ -67,15 +80,12 @@ public class GroupingItem<THeader, TValue> extends BaseObservable {
         return headerValue;
     }
 
-    public List<GroupingItem<THeader, TValue>> getChildren() {
-        return children;
-    }
-
     private GroupingItem(final GroupingItemType itemType, final TValue value, final THeader headerValue, final List<GroupingItem<THeader, TValue>> children) {
         this.itemType = itemType;
         this.value = value;
         this.headerValue = headerValue;
         this.children = children;
+        this.visible = !isChild();
     }
 
     public static <THeader, TValue> GroupingItem<THeader, TValue> MakeHeader(THeader header, final List<TValue> children) {
@@ -88,5 +98,14 @@ public class GroupingItem<THeader, TValue> extends BaseObservable {
 
     public static <THeader, TValue> GroupingItem<THeader, TValue> MakeSingle(TValue value) {
         return new GroupingItem<>(GroupingItemType.SINGLE, value, null, null);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Stream<GroupingItem<THeader, TValue>> stream() {
+        if (isHeader()) {
+            return Stream.concat(Stream.of(this), Stream.of(children));
+        } else {
+            return Stream.of(this);
+        }
     }
 }

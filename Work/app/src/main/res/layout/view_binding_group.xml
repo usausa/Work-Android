@@ -33,6 +33,7 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:divider="@null"
                 android:onItemClick="@{(p, v, pos, id) -> view.selectList(pos)}"
                 list_binding_group="@{view.list}"/>
 

@@ -66,7 +66,8 @@ public class BindingGroupView extends AppViewBase {
 
         Stream.of(dataA1, dataA2, dataB1)
                 .chunkBy(GroupDataEntity::getGroup)
-                .map(x -> x.size() == 1 ? GroupingItem.<GroupDataHeaderEntity, GroupDataEntity>MakeSingle(x.get(0)) : GroupingItem.MakeHeader(new GroupDataHeaderEntity(), x))
+                .map(x -> x.size() == 1 ? GroupingItem.<GroupDataHeaderEntity, GroupDataEntity>MakeSingle(x.get(0)).stream() : GroupingItem.MakeHeader(new GroupDataHeaderEntity(), x).stream())
+                .flatMap(x -> x)
                 .collect(Collectors.toCollection(() -> list));
     }
 
@@ -78,11 +79,6 @@ public class BindingGroupView extends AppViewBase {
         GroupingItem<GroupDataHeaderEntity, GroupDataEntity> item = list.get(position);
         if (item.isHeader()) {
             item.setExpanded(!item.isExpanded());
-            if (item.isExpanded()) {
-                list.addAll(position + 1, item.getChildren());
-            } else {
-                list.subList(position + 1, position + 1 + item.getChildren().size()).clear();
-            }
         } else {
             item.setSelected(!item.isSelected());
             if (item.isChild()) {
