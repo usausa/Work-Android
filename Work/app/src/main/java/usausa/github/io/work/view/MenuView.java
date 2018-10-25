@@ -54,6 +54,10 @@ public class MenuView extends AppViewBase {
         getNavigator().navigate(ViewId.LAYOUT_EXPAND);
     }
 
+    public void onClickLayoutNested() {
+        getNavigator().navigate(ViewId.LAYOUT_NESTED);
+    }
+
     public void onClickMiscTransferSend() {
         getNavigator().navigate(ViewId.MISC_TRANSFER_SEND);
     }

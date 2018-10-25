@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable name="view" type="usausa.github.io.work.view.layout.LayoutNestedView"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/header"
+            bind:view="@{view}"/>
+
+        <ScrollView
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintBottom_toTopOf="@+id/functions">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textSize="24sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textSize="24sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textSize="24sp"/>
+
+                </LinearLayout>
+
+                <usausa.github.io.work.view.widget.MaxHeightScrollView
+                    android:id="@+id/scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    nested_scroll="@{true}">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="48dp"
+                                android:background="@color/metroBlueDark"
+                                android:gravity="center_vertical"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp"/>
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:inputType="number"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </usausa.github.io.work.view.widget.MaxHeightScrollView>
+
+                <!--suppress AndroidUnknownAttribute -->
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawSelectorOnTop="true"
+                    tools:ignore="NestedScrolling"
+                    list_layout_nested="@{view.list}"
+                    nested_scroll="@{true}"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <include
+            android:id="@+id/functions"
+            layout="@layout/functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:view="@{view}"
+            bind:f1Enable="@{true}"
+            bind:f1Text="@{@string/execute_back}"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -14,6 +14,7 @@ import usausa.github.io.work.view.binding.BindingMiscView;
 import usausa.github.io.work.view.helper.Navigator;
 import usausa.github.io.work.view.layout.LayoutExpandView;
 import usausa.github.io.work.view.layout.LayoutKeyboardView;
+import usausa.github.io.work.view.layout.LayoutNestedView;
 import usausa.github.io.work.view.layout.LayoutSubMenuView;
 import usausa.github.io.work.view.misc.MiscTransferReceiveView;
 import usausa.github.io.work.view.misc.MiscTransferSendView;
@@ -31,6 +32,7 @@ public final class ViewId {
     public static final int LAYOUT_SUB_MENU = 201;
     public static final int LAYOUT_KEYBOARD = 202;
     public static final int LAYOUT_EXPAND = 203;
+    public static final int LAYOUT_NESTED = 204;
 
     public static final int MISC_TRANSFER_SEND = 301;
     public static final int MISC_TRANSFER_RECEIVE = 302;
@@ -47,6 +49,7 @@ public final class ViewId {
         factories.put(LAYOUT_SUB_MENU, LayoutSubMenuView::new);
         factories.put(LAYOUT_KEYBOARD, LayoutKeyboardView::new);
         factories.put(LAYOUT_EXPAND, LayoutExpandView::new);
+        factories.put(LAYOUT_NESTED, LayoutNestedView::new);
         factories.put(MISC_TRANSFER_SEND, MiscTransferSendView::new);
         factories.put(MISC_TRANSFER_RECEIVE, MiscTransferReceiveView::new);
     }
